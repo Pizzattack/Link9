@@ -30,7 +30,7 @@ Play online or play locally. No install, no build step, no account, no ads. Work
 
 ## Play
 
-- **Online:** [`https://<your-username>.github.io/<repo-name>/`](https://pizzattack.github.io/Link9/)
+- **Online:** [`play from the github pages`](https://pizzattack.github.io/Link9/)
 - **Locally:** download the repository and open `index.html` in a recent browser (Chrome, Edge, Firefox, Safari).
 
 ## How it plays
