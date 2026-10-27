@@ -7,7 +7,27 @@ https://pizzattack.github.io/Link9/
 
 > One HTML file. Play online or play locally. No install, no build step, no account, no ads. Works on desktop and phones.
 
-<!-- Add your screenshots here, e.g. ![Combat](docs/combat.png) -->
+<p align="center">
+  <img src="docs/social/github-social.png" alt="LINK//9 — Grid Protocol" width="100%">
+</p>
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/screens/combat-desktop.png" alt="Combat on the 3×3 grid" width="49%">
+  <img src="docs/screens/campaign-desktop.png" alt="Campaign screen" width="49%">
+</p>
+<p align="center">
+  <img src="docs/screens/deck-desktop.png" alt="Deck builder" width="49%">
+  <img src="docs/screens/reward-desktop.png" alt="Reward: choose a program" width="49%">
+</p>
+
+<p align="center">
+  <img src="docs/screens/combat-phone.png" alt="Combat on phone" width="24%">
+  <img src="docs/screens/campaign-phone.png" alt="Campaign on phone" width="24%">
+  <img src="docs/screens/deck-phone.png" alt="Deck builder on phone" width="24%">
+  <img src="docs/screens/reward-phone.png" alt="Reward on phone" width="24%">
+</p>
 
 ## Play
 
