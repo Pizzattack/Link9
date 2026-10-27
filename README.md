@@ -1,11 +1,10 @@
 # LINK//9 — Grid Protocol
 
-
 **A free, source-available, non-commercial cyberpunk-themed card game for your browser.** Hack your way across a 3×3 grid: place programs, link their arrows into chains, trigger combos and crash your rival's hit points before they crash yours.
 
 https://pizzattack.github.io/Link9/
 
-> One HTML file. Play online or play locally. No install, no build step, no account, no ads. Works on desktop and phones.
+Play online or play locally. No install, no build step, no account, no ads. Works on desktop and phones.
 
 <p align="center">
   <img src="docs/social/github-social.png" alt="LINK//9 — Grid Protocol" width="100%">
@@ -31,7 +30,7 @@ https://pizzattack.github.io/Link9/
 
 ## Play
 
-- **Online:** `https://<your-username>.github.io/<repo-name>/`
+- **Online:** [`https://<your-username>.github.io/<repo-name>/`](https://pizzattack.github.io/Link9/)
 - **Locally:** download the repository and open `index.html` in a recent browser (Chrome, Edge, Firefox, Safari).
 
 ## How it plays
@@ -64,30 +63,8 @@ The in-game **Rules** screen and the guided **Tutorial** cover everything in a f
 - **Responsive:** layouts for desktop, tablet and phone, with touch drag-and-drop.
 - **Installable and offline-ready (PWA):** add it to your home screen and play without a connection once it has loaded. Progress is saved in your browser (localStorage). Nothing is sent anywhere.
 
-## Run, host and modify
-
-The game is a single `index.html` plus static assets. There is nothing to compile.
-
-```
-index.html
-ui/            interface sprites and icons
-abilities/     symbol and trigger icons
-illustrations/ card illustrations (001-162)
-comics/        comic pages
-fonts/         Chakra Petch and Saira (woff2)
-sounds/        sfx/ battle/ music/ (mp3)
-icons/         favicon, Apple touch icon, PWA icons
-manifest.webmanifest, sw.js, favicon.ico   (PWA / offline)
-tools/         make-screenshots.mjs, make-icons.py (see below)
-```
-
-To host it on **GitHub Pages**: *Settings → Pages → Deploy from a branch → main / (root)*. All paths are relative, so it also works from a sub-folder or any static host.
-
-The file header explains the conventions for contributors, including the build counter shown at the bottom of the home screen.
 
 ## Install it as an app (iPhone, Android, desktop)
-
-The game must be opened from its web address (GitHub Pages); a file opened from disk cannot be installed.
 
 - **iPhone / iPad (Safari):** open the game, tap **Share → Add to Home Screen → Add**. It then launches full screen with its own icon. Open it once online and play a few screens so that images and sounds are stored; after that it works offline.
 - **Android (Chrome):** menu **⋮ → Install app** (or *Add to Home screen*).
@@ -95,17 +72,16 @@ The game must be opened from its web address (GitHub Pages); a file opened from 
 
 Notes: iOS keeps stored data for a limited time if the app is not used for several weeks, and clears it if you clear Safari's website data. Saves live in the browser's storage, so back up anything precious. After an update, close and reopen the app once to get the new version.
 
-
 - `tools/make-screenshots.mjs` takes the game screenshots (English, desktop + phone) and builds the GitHub social preview and the itch.io cover/banner in one command (see below).
 - Scene mode: `index.html?scene=<home|combat|combat-low|campaign|merchant|workshop|deck|reward|rules|tutorial|comic>&lang=<en|fr|…>` shows a reproducible demo state (fixed random seed, no save read or written, sound off). It is what `make-screenshots.mjs` photographs.
 - `tools/make-icons.py` regenerates the favicon, the Apple touch icon and the PWA icons from `ui/skin/logo-round.png` (`pip install pillow`, then `python3 tools/make-icons.py` from the repository root).
 
 ## About this project
 
-LINK//9 is a personal, non-commercial fan project. I love the gameplay of **Card City Nights** (grid placement, linked arrows, chain combos). This is my own take on it with different rules and content: original programs, a netrunner setting and its own art direction. It is **not affiliated with, endorsed by or derived from** the original game's assets or code.
+LINK//9 is a personal, non-commercial fan project. I love the gameplay of **Card City Nights** (grid placement, linked arrows, chain combos) but not its art style and lore, and I wanted a fresh set of cards and rules. This is my own take with different rules and content: original programs, a netrunner setting and its own art direction. It is **not affiliated with, endorsed by or derived from** the original game's assets or code. It's not perfect, it was made with AI, so take for what it is : a few hours of fun gameplay provided for free. 
 
 **How it was made**
-- Game design, direction and curation: a human designer.
+- **Game design:** direction and curation: a solo human designer on their spare time.
 - **Illustrations, comic pages and UI art:** generated with ChatGPT.
 - **Code:** written with Claude (Anthropic).
 
@@ -121,11 +97,3 @@ LINK//9 is a personal, non-commercial fan project. I love the gameplay of **Card
 - Third-party audio and fonts keep their own licences (see Credits).
 
 The game is free to play and share; selling it or using it commercially is not allowed. Strictly speaking this is “source-available”, not OSI open source.
-
----
-
-## En bref (français)
-
-**LINK//9 — Grid Protocol** est un jeu de cartes netrunner gratuit, au code source disponible et réservé à un usage non commercial, jouable dans le navigateur (un seul fichier HTML, sans installation). Posez des programmes sur une grille 3×3, reliez leurs flèches en chaînes, déclenchez des combos de 3 symboles (attaque, bouclier, réveil) et faites tomber les PV du rival avant les vôtres. 180 programmes originaux, campagne avec marchand et atelier, BD de 72 pages, tutoriel guidé, IA adverse, 7 langues, musique et effets sonores.
-
-Projet de fan, non commercial : j'aime le gameplay de Card City Nights mais pas son style graphique, j'ai donc créé ma propre variante avec des cartes originales dans un univers netrunner. Illustrations, BD et interface générées avec ChatGPT ; code écrit avec Claude.
