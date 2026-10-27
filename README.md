@@ -1,8 +1,11 @@
 # LINK//9 — Grid Protocol
 
-**A free, source-available, non-commercial netrunner card game for your browser.** Hack your way across a 3×3 grid: place programs, link their arrows into chains, trigger combos and crash your rival's hit points before they crash yours.
 
-> One HTML file. No install, no build step, no account, no ads. Works on desktop and phones.
+**A free, source-available, non-commercial cyberpunk-themed card game for your browser.** Hack your way across a 3×3 grid: place programs, link their arrows into chains, trigger combos and crash your rival's hit points before they crash yours.
+
+https://pizzattack.github.io/Link9/
+
+> One HTML file. Play online or play locally. No install, no build step, no account, no ads. Works on desktop and phones.
 
 <!-- Add your screenshots here, e.g. ![Combat](docs/combat.png) -->
 
