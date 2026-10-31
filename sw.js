@@ -2,7 +2,7 @@
    Once the game has been downloaded for offline play (see "Offline play" in the game, it writes the marker "__installed"),
    EVERYTHING is served from the cache: the game starts instantly, offline or not, and never changes version by surprise.
    Updates are downloaded by the game itself after the player confirms (assets.json lists every file with a hash).
-   Before the offline package is installed: network first, with what you have already seen kept as a fallback. */
+   Before the offline package is installed: the worker stays out of the way (plain network). */
 const APP = "link9-app", STAGE = "link9-stage";
 const SCOPE = self.registration.scope, META = new URL("__installed", SCOPE).href, INDEX = new URL("index.html", SCOPE).href;
 
@@ -11,15 +11,15 @@ self.addEventListener("activate", (e) => {
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== APP && k !== STAGE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
 
-// Safari requests audio with a Range header: answer it from the cached full file.
+// Safari requests audio with a Range header: answer it from the cached file. A Blob slice is lazy (no copy of the whole mp3 per request).
 function slice(req, res) {
   const rg = req.headers.get("range");
   if (!rg || !res.ok) return res;
-  return res.arrayBuffer().then((buf) => {
-    const m = /bytes=(\d+)-(\d*)/.exec(rg) || [0, 0, ""];
-    const start = +m[1], end = m[2] ? Math.min(+m[2], buf.byteLength - 1) : buf.byteLength - 1;
-    return new Response(buf.slice(start, end + 1), { status: 206, statusText: "Partial Content", headers: {
-      "Content-Type": res.headers.get("Content-Type") || "audio/mpeg", "Content-Range": `bytes ${start}-${end}/${buf.byteLength}`, "Content-Length": String(end - start + 1) } });
+  return res.blob().then((blob) => {
+    const m = /bytes=(\d+)-(\d*)/.exec(rg) || [0, 0, ""], size = blob.size;
+    const start = +m[1], end = m[2] ? Math.min(+m[2], size - 1) : size - 1;
+    return new Response(blob.slice(start, end + 1), { status: 206, statusText: "Partial Content", headers: {
+      "Content-Type": res.headers.get("Content-Type") || "audio/mpeg", "Content-Range": `bytes ${start}-${end}/${size}`, "Content-Length": String(end - start + 1) } });
   });
 }
 self.addEventListener("fetch", (e) => {
@@ -33,13 +33,6 @@ self.addEventListener("fetch", (e) => {
       if (hit) return slice(req, hit);
       try { return await fetch(nav ? req : url.href); } catch (err) { return Response.error(); }
     }
-    try {                                                        // not installed: network first, cache as fallback
-      const net = await fetch(nav ? req : url.href);
-      if (net.ok) c.put(key, net.clone());
-      return slice(req, net);
-    } catch (err) {
-      const hit = await c.match(key);
-      return hit ? slice(req, hit) : Response.error();
-    }
+    return fetch(req);                                           // not installed: plain network (the browser's own HTTP cache applies), nothing is copied
   })());
 });
