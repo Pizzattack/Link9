@@ -1,0 +1,34 @@
+# Builds the screenshots and the GitHub / itch.io images on GitHub's servers (no install needed on your side).
+# Run it: repository > Actions > "Screenshots" > Run workflow. Works from an iPad browser.
+# Result: committed to docs/screens/ and docs/social/ (and attached to the run as a downloadable zip).
+name: Screenshots
+on:
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: "Language of the screenshots (en, fr, es, it, de, zh, ja)"
+        default: "en"
+permissions:
+  contents: write
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/make-screenshots.mjs "${{ inputs.lang }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: docs/
+      - name: Commit the images
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs
+          git diff --cached --quiet || git commit -m "Update screenshots and social images"
+          git push
