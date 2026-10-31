@@ -564,7 +564,7 @@
     padding:20px;
   }
   .modal{
-    background: var(--panel); border:1px solid var(--line); border-radius:16px;
+    background: none; border:1px solid var(--line); border-radius:16px;
     padding:20px; width:100%; max-width:340px; text-align:center;
   }
   .modal h2{ margin:0 0 6px; font-size:17px; }
@@ -879,7 +879,7 @@
   }
   .log-panel{
     width: min(560px, 100%); height: min(86vh, 860px); display:flex; flex-direction:column;
-    background: var(--panel); border:1px solid var(--line); border-radius:16px; padding:14px; box-sizing:border-box;
+    background: none; border:1px solid var(--line); border-radius:16px; padding:14px; box-sizing:border-box;
   }
   .log-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding: 2px 4px 10px; flex:0 0 auto; }
   .log-head h2{ margin:0; font-size:17px; letter-spacing:.06em; text-transform:uppercase; }
@@ -920,7 +920,7 @@
   body.ui-skin .log-overlay{ background: rgba(7,7,8,.7); }
   body.ui-skin .log-panel{
     position:relative; isolation:isolate;
-    background: rgba(12,12,13,.95); border-radius:0; border-style:solid; border-color:transparent; border-width:30px; padding:6px 10px;
+    background: none; border-radius:0; border-style:solid; border-color:transparent; border-width:30px; padding:6px 10px;
     border-image:none;
   }
   /* Cadre 9-slice en pseudo-élément : seul le cadre (tile.webp, bleu) est désaturé, pas le contenu. */
@@ -1420,7 +1420,7 @@
   @media (prefers-reduced-motion: reduce){ .rw-card.morph, .rw-card.conv.pop, .rw-spark, .camp-tok b.bump{ animation-duration:.01s; } }
   #overlay{ z-index:210; }
   #dkOverlay{ z-index:180; }
-  @media (max-width:520px){ .merch-row{ flex-wrap:wrap; } .merch-give{ flex-basis:100%; } .merch-cost{ flex:1; } }
+
 
   /* ---------- Pluie de voxels orangés (écran d'accueil) : très légère, en continu ---------- */
   .home-rain{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; perspective:700px; }
@@ -1443,7 +1443,7 @@
   body.ui-skin #dkOverlay{ --dkf:16px; }
   body.ui-skin #dkOverlay :is(.dk-col, .dbg-swap-head, .dk-actions){
     position:relative; isolation:isolate; border:var(--dkf) solid transparent; border-radius:0; box-shadow:none;
-    background:rgba(12,12,13,.93);
+    background:none;
   }
   body.ui-skin #dkOverlay :is(.dk-col, .dbg-swap-head, .dk-actions)::before{
     content:""; position:absolute; inset:calc(var(--dkf) * -1); z-index:-1; pointer-events:none;
@@ -1611,6 +1611,83 @@
   .snd-row.snd-mute{ grid-template-columns:auto 1fr; justify-content:start; cursor:pointer; }
   .snd-row input[type=range]{ width:100%; accent-color:var(--accent,#ff8a1f); }
   .snd-row output{ text-align:right; color:var(--muted); font-size:12px; }
+  .snd-data{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:6px; }
+  .snd-data textarea{ flex:1 1 100%; font:11px/1.2 ui-monospace,Menlo,monospace; background:#0e1013; color:var(--muted,#aaa); border:1px solid #333; border-radius:6px; padding:4px 6px; resize:none; }
+  .snd-mini{ padding:.2em .8em !important; font-size:12px !important; min-height:0 !important; width:auto !important; }
+  #dataMsg{ font-size:12px; color:var(--muted,#aaa); flex:1; }
+  .camp-small-row{ display:flex; gap:11px; width:100%; }
+  .camp-small-row .camp-btn{ flex:1 1 0; min-width:0; }
+  .pwa-bar{ height:8px; background:#222; border-radius:4px; overflow:hidden; margin:8px 10px; }
+  .pwa-bar i{ display:block; height:100%; width:0; background:var(--accent,#ff8a1f); transition:width .2s; }
+
+  /* ---------- Ajustement à l'écran : plus d'ascenseurs sur l'accueil, la campagne, le marchand, la récompense (voir fitAll()) ---------- */
+  .camp-small-row .camp-btn, .home-screen .home-small-row .home-btn{ font-size:clamp(12px, 2.1vw, 18px) !important; letter-spacing:.05em; white-space:nowrap; }
+  .camp-left, .camp-right{ display:contents; }
+  .camp-screen{ overflow:hidden; }
+  .camp-screen .camp-inner{ margin:0; }
+  .log-overlay.camp-ov{ overflow:hidden; }
+  .fit-panel .camp-scroll{ overflow:visible; }
+  .log-panel.camp-log.fit-panel{ max-height:none; }
+  .merch-row{ display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:center; gap:8px; padding:6px 8px; }
+  .merch-give{ font-size:clamp(12px, 3.4vw, 15px); }
+  .merch-cost{ font-size:clamp(12px, 3.4vw, 15px); }
+  .merch-row .newgame-btn{ min-width:64px; }
+  .rw-row{ flex-wrap:nowrap; gap:clamp(6px, 1.6vw, 12px); }
+  .rw-card{ width:auto; flex:1 1 0; min-width:0; max-width:290px; padding:clamp(6px, 1.6vw, 12px); }
+  .rw-card .dbg-info{ font-size:clamp(8px, 2.4vw, 10px); }
+  @media (min-aspect-ratio: 6/5) and (max-height: 860px){
+    .camp-inner{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:clamp(24px, 6vw, 70px); align-items:center; max-width:1000px; }
+    .camp-left, .camp-right{ display:flex; flex-direction:column; align-items:center; gap:clamp(10px, 3vh, 26px); }
+    .camp-buttons{ width:min(44vw, 406px); gap:8px; }
+    .camp-logo{ height:min(92px, 15vh); }
+    .camp-logo-wrap{ margin-bottom:0; }
+    .home-inner{ flex-direction:row; justify-content:center; gap:clamp(24px, 6vw, 70px); max-width:1000px; }
+    .home-logo-wrap{ width:min(40vw, 462px); }
+    .home-buttons{ width:min(40vw, 406px); gap:10px; }
+  }
+  @media (min-aspect-ratio: 5/4) and (min-width: 820px){
+    #merchList{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; align-items:start; }
+    #merchOverlay .log-panel.camp-log{ width:min(1240px, 100%); }
+  }
+  @media (max-height: 560px){
+    #wsHint{ display:none; }
+    .ws-fixed{ flex-direction:row; flex-wrap:wrap; justify-content:center; align-items:center; gap:4px 14px; padding:2px 8px 4px; }
+    .ws-fixed .log-head{ padding:0; }
+    #wsOverlay .log-panel{ overflow-y:auto; }
+    #wsOverlay .camp-scroll{ overflow:visible; flex:none; }
+    #wsOverlay .ws-foot{ position:sticky; bottom:0; }
+    #rewardOverlay .camp-scroll{ gap:6px; }
+    #rewardOverlay .camp-log p.hint{ display:none; }
+    .rw-comic{ padding:4px 8px; gap:10px; }
+    .rw-comic-page{ height:min(150px, 15vh); }
+    .rw-card .dbg-tile{ width:min(100%, 34vh); margin-left:auto; margin-right:auto; }
+    .rw-card .rw-tag{ margin-bottom:4px; }
+    #dkOverlay .dbg-swap-head{ flex-wrap:nowrap; overflow-x:auto; padding:2px 8px; margin:4px 8px 0; }
+    #dkOverlay .dbg-swap-head > span{ display:none; }
+    #dkOverlay .dbg-filters{ flex-wrap:nowrap; }
+    body.ui-skin #dkOverlay{ --dkf:9px; }
+    body.ui-skin #dkOverlay .dk-cols{ padding:8px 12px; gap:14px; }
+    body.ui-skin #dkOverlay .dk-actions{ margin:0 12px 4px; }
+    .dk-list{ padding:18px 14px 12px; }
+    .dk-actions{ padding:4px 12px; }
+    .dk-actions #dkMsg{ font-size:11px; }
+    .dk-actions button{ min-height:30px; }
+  }
+  #dgOverlay{ z-index:300; }
+  #dgOverlay.dg-safe .dg-sign{ color:#3ddc97; text-shadow:0 0 18px rgba(61,220,151,.6); }
+  #dgOverlay.dg-safe .log-panel{ box-shadow:0 0 34px rgba(61,220,151,.4); }
+  body.ui-skin #dgOverlay.dg-safe .log-panel::before{ filter:none; }
+  .dg-sign{ text-align:center; font-size:46px; line-height:1; color:#ff4d4f; text-shadow:0 0 18px rgba(255,60,60,.65); }
+  #dgOverlay .log-panel{ box-shadow:0 0 34px rgba(255,60,60,.4); }
+  body.ui-skin #dgOverlay .log-panel::before{ filter: grayscale(1) sepia(1) saturate(5) hue-rotate(-48deg) brightness(.95); }
+  #dgOk, body.ui-skin #dgOk, body.ui-skin #dgOk:hover, body.ui-skin #dgOk:active{ background:#b3262b !important; background-image:none !important; border:1px solid #ff6b6e !important; border-image:none !important; border-radius:6px; color:#fff !important; text-shadow:none !important; filter:none !important; padding:7px 14px; }
+  #dgOk:hover{ background:#d02f35 !important; }
+  #dgOk::before, #dgOk::after{ display:none !important; }
+  #dbgIcon{ position:fixed; top:0; left:0; z-index:9998; font-size:16px; line-height:1; padding:3px; cursor:pointer; display:none; filter:drop-shadow(0 0 4px rgba(255,80,80,.8)); }
+  body.dbg-on #dbgIcon{ display:block; }
+  #dbgSecret.armed{ z-index:9999; }
+  .bk-list{ display:flex; flex-direction:column; gap:6px; padding:0 6px 6px; }
+  .bk-list h3{ margin:4px 0 0; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted,#aaa); }
   .snd-home{ position:absolute; top:calc(12px + env(safe-area-inset-top)); left:calc(12px + env(safe-area-inset-left)); z-index:3; font-size:18px; line-height:1; }
   .topbar-actions .snd-btn{ padding:.2em .6em; font-size:15px; }
   .lang-btn{ padding:5px; background:rgba(14,14,15,.6); border:1px solid var(--line); border-radius:6px; }
@@ -1741,6 +1818,10 @@
         <button class="newgame-btn home-btn home-rules" id="homeRules" data-skin-variant="2"></button>
         <button class="newgame-btn home-btn home-rules" id="homeComic" data-skin-variant="2"></button>
       </div>
+      <div class="home-small-row">
+        <button class="newgame-btn home-btn home-rules" id="homeLoad" data-skin-variant="2"></button>
+        <button class="newgame-btn home-btn home-rules" id="homeSave" data-skin-variant="2"></button>
+      </div>
     </div>
   </div>
 </div>
@@ -1748,17 +1829,22 @@
 <div class="camp-screen" id="campScreen" hidden>
   <button class="newgame-btn" id="campHome"></button>
   <div class="camp-inner">
+    <div class="camp-left">
     <div class="camp-logo-wrap"><img class="camp-logo" src="./ui/skin/logo.webp" alt=""><span class="camp-logo-text">LINK//9</span></div>
     <div class="camp-tokens-box"><div class="camp-box-title" id="campTokensTitle"></div><div class="camp-tokens" id="campTokens"></div></div>
     <div class="camp-head"><div id="campSub"></div><div id="campFragments"></div></div>
+    </div>
+    <div class="camp-right">
     <div class="camp-buttons">
       <div class="camp-item"><button class="newgame-btn camp-btn" id="campNext" data-skin-variant="5"></button><small class="camp-btn-sub" id="campNextSub"></small></div>
       <div class="camp-item"><button class="newgame-btn camp-btn" id="campDeck" data-skin-variant="5"></button><small class="camp-btn-sub" id="campDeckSub"></small></div>
       <div class="camp-item"><button class="newgame-btn camp-btn" id="campMerchant" data-skin-variant="5"></button><small class="camp-btn-sub" id="campMerchantSub"></small></div>
       <div class="camp-item"><button class="newgame-btn camp-btn" id="campWorkshop" data-skin-variant="5"></button><small class="camp-btn-sub" id="campWorkshopSub"></small></div>
+      <div class="camp-small-row"><button class="newgame-btn camp-btn" id="campLoad" data-skin-variant="2"></button><button class="newgame-btn camp-btn" id="campSave" data-skin-variant="2"></button></div>
     </div>
     <div class="camp-foot">
       <button class="newgame-btn" id="campReset"></button>
+    </div>
     </div>
   </div>
 </div>
@@ -1789,6 +1875,46 @@
   </div>
 </div>
 
+<div class="log-overlay camp-ov" id="loadOverlay" hidden>
+  <div class="log-panel camp-log snd-panel" role="dialog" aria-modal="true"><div class="camp-scroll">
+    <div class="log-head"><h2 id="loadTitle"></h2></div>
+    <p class="hint" id="loadHint"></p>
+    <div class="snd-data"><input type="file" id="loadFile" accept=".txt,.l9,text/plain" hidden><button class="newgame-btn snd-mini" id="loadPick"></button><span id="loadMsg"></span></div>
+    <div class="bk-list" id="loadBackups" hidden></div>
+    <div class="camp-actions"><button class="newgame-btn" id="loadClose"></button></div>
+  </div></div>
+</div>
+<div class="log-overlay camp-ov" id="saveOverlay" hidden>
+  <div class="log-panel camp-log snd-panel" role="dialog" aria-modal="true"><div class="camp-scroll">
+    <div class="log-head"><h2 id="saveTitle"></h2></div>
+    <p class="hint" id="saveHint"></p>
+    <p class="hint" id="saveRisk" style="color:#ff9a3d" hidden></p>
+    <div class="snd-data"><textarea id="saveBox" rows="2" readonly spellcheck="false"></textarea><button class="newgame-btn snd-mini" id="saveDl"></button><button class="newgame-btn snd-mini" id="saveShare" hidden></button><button class="newgame-btn snd-mini" id="saveCopy"></button><span id="saveMsg"></span></div>
+    <div class="camp-actions"><button class="newgame-btn" id="saveClose"></button></div>
+  </div></div>
+</div>
+<div class="log-overlay camp-ov" id="dataRemind" hidden>
+  <div class="log-panel camp-log snd-panel" role="dialog" aria-modal="true"><div class="camp-scroll">
+    <div class="log-head"><h2 id="remTitle"></h2></div>
+    <p id="remText" style="padding:6px 10px;font-size:14px;line-height:1.4;text-align:center"></p>
+    <div class="camp-actions"><button class="newgame-btn" id="remNow"></button><button class="newgame-btn" id="remLater"></button></div>
+  </div></div>
+</div>
+<div class="log-overlay camp-ov" id="dgOverlay" hidden>
+  <div class="log-panel camp-log snd-panel" role="alertdialog" aria-modal="true"><div class="camp-scroll">
+    <div class="dg-sign" id="dgSign" aria-hidden="true">⚠</div>
+    <p id="dgText" style="padding:6px 10px;font-size:14px;line-height:1.4;text-align:center"></p>
+    <div class="camp-actions"><button class="newgame-btn" id="dgCancel"></button><button class="newgame-btn dg-ok" id="dgOk"></button></div>
+  </div></div>
+</div>
+<div class="log-overlay camp-ov" id="pwaOverlay" hidden>
+  <div class="log-panel camp-log snd-panel" role="dialog" aria-modal="true"><div class="camp-scroll">
+    <div class="log-head"><h2 id="pwaTitle"></h2></div>
+    <p id="pwaText" style="padding:6px 10px;font-size:14px;line-height:1.4;text-align:center"></p>
+    <div class="pwa-bar" id="pwaBar" hidden><i id="pwaFill"></i></div>
+    <div class="camp-actions"><button class="newgame-btn" id="pwaOk"></button><button class="newgame-btn" id="pwaNo"></button></div>
+  </div></div>
+</div>
 <div class="log-overlay camp-ov" id="sndOverlay" hidden>
   <div class="log-panel camp-log snd-panel" role="dialog" aria-modal="true"><div class="camp-scroll">
     <div class="log-head"><h2 id="sndTitle"></h2></div>
@@ -1796,6 +1922,7 @@
     <label class="snd-row"><span id="sndMasterLbl"></span><input type="range" id="sndMaster" min="0" max="100"><output id="sndMasterOut"></output></label>
     <label class="snd-row"><span id="sndSfxLbl"></span><input type="range" id="sndSfx" min="0" max="100"><output id="sndSfxOut"></output></label>
     <label class="snd-row"><span id="sndMusicLbl"></span><input type="range" id="sndMusic" min="0" max="100"><output id="sndMusicOut"></output></label>
+    <div class="snd-data" id="pwaRow" hidden><span id="pwaStatus"></span><button class="newgame-btn snd-mini" id="pwaBtn"></button></div>
     <div class="camp-actions"><button class="newgame-btn" id="sndClose"></button></div>
   </div></div>
 </div>
@@ -1864,6 +1991,7 @@
 
 <div class="home-build" id="homeBuild"></div>
 <button id="dbgSecret" tabindex="-1" aria-hidden="true"></button>
+<div id="dbgIcon" title="debug" hidden>🐞</div>
 <div class="dbg-menu" id="dbgMenu" hidden></div>
 <div class="dbg-menu dbg-rar-menu" id="dbgRarMenu" hidden></div>
 <div class="dbg-ed-overlay" id="dbgEdOverlay" hidden>
@@ -2172,7 +2300,7 @@ const STRINGS = {
     wsAdd: "Add", fltCrafted: "Crafted ✦", fltBase: "Original", fltInDeck: "In deck", fltOutDeck: "Not in deck", campTitle: "Campaign", campFightN: (n) => `Fight ${n}`, campNext: "Next fight", campResume: "Resume fight", campDeck: "Deck", campMerchant: "Merchant",
     campTenacity: (r) => `Tenacity reward: +1 shard (${r})`,
     campFragments: (n, total) => `Story fragments: ${n} / ${total}`, campWorkshop: "Workshop", wsTitle: "Workshop", wsHint: "Spend shards of a program's rarity to add one link or one symbol to it (one upgrade per program). Rare and ultra-rare programs can instead pay double in shards of the rarity below.", wsHintScrap: "Scrap a spare copy (one that is not in your deck) to get shards back: 1 shard of its rarity, plus half of what its upgrade cost.", wsLink: "Link", wsOwned: (n, d) => `×${n} owned · ${d} in deck`, wsDisenchant: "Scrap", wsDisConfirm: (name, gain) => `Scrap ${name}? The program is destroyed and you get ${gain}.`, wsMaxed: "Nothing left to upgrade", wsModeUp: "Upgrade program", wsModeScrap: "Scrap program", wsFxUp: "Program upgraded", wsFxScrap: "Program scrapped", wsOr: "or", wsNoScrap: "No spare copy to scrap (programs in your deck are protected).", merchPickCard: (r) => `Choose among 5 ${r} programs`, merchPickTitle: "Choose your program", merchPickHint: "Pick 1 of these 5 programs. The other 4 are lost, with no shard in return.",
-    campTokensTitle: "Shards", campNextSub: "Fight the next opponent", campResumeSub: "Resume the fight in progress", campRewardSub: "Pick your reward", campDeckSub: "Your programs and campaign deck", campMerchantSub: "Buy programs with shards", campWorkshopSub: "Upgrade or scrap programs", merchBlockShards: "Buy shards", merchBlockRandom: "Buy a random program", merchBlockPick: "Buy a semi-random program (1 of 5)", campJoinNote: "You can add it to your campaign deck.", campJoinBadge: "Joined the collection", sndTitle: "Sound", sndMute: "Mute all", sndMaster: "Master volume", sndSfx: "Sound effects", sndMusic: "Music", sndSoon: "(coming soon)", loading: "Loading…", campHome: "Home", campReset: "Restart campaign",
+    campTokensTitle: "Shards", campNextSub: "Fight the next opponent", campResumeSub: "Resume the fight in progress", campRewardSub: "Pick your reward", campDeckSub: "Your programs and campaign deck", campMerchantSub: "Buy programs with shards", campWorkshopSub: "Upgrade or scrap programs", merchBlockShards: "Buy shards", merchBlockRandom: "Buy a random program", merchBlockPick: "Buy a semi-random program (1 of 5)", campJoinNote: "You can add it to your campaign deck.", campJoinBadge: "Joined the collection", sndTitle: "Sound", sndMute: "Mute all", sndMaster: "Master volume", sndSfx: "Sound effects", sndMusic: "Music", sndSoon: "(coming soon)", dataExp: "Export", dataImp: "Import", dataHint: "Save code (campaign, comic, settings)", dataCopied: "Code copied.", dataBad: "Invalid code.", dataNewer: "This save comes from a newer version of the game. Update the game first.", dataAsk: "Replace your campaign, comic and settings with this save?", dataTitle: "Local backup", dataRemind: "You've played over an hour since your last backup. Browsers can delete stored data without warning — export a save code and keep it somewhere safe.", dataNow: "Export now", dataLater: "Later", dataLoad: "Load", dataSave: "Save", dataChoose: "Choose a file…", dataDl: "Download file", dataShare: "Share", dataCopy: "Copy code", dataLoadHint: "Select a LINK//9 save file.", dataSaveHint: "Campaign, comic and settings in one small file.", dataSaved: "File saved.", pwaTitle: "Offline play", pwaInstallAsk: (s) => `Download the whole game (${s}) to play offline? Wi‑Fi recommended.`, pwaUpdateAsk: (b, s) => `A new version (build ${b}) is available. Download the update (${s}) now?`, pwaDownload: "Download", pwaUpdate: "Update", pwaLater: "Later", pwaCancel: "Cancel", pwaProgress: (p) => `Downloading… ${p}%`, pwaFail: "Download interrupted. Check your connection and try again.", pwaDlBtn: "Download for offline play", pwaCheckBtn: "Check for updates", pwaUpToDate: "Up to date.", pwaVersion: (b) => `Offline version: build ${b}`, pwaNoPkg: "Offline package unavailable here.", dgDelete: "Delete campaign", dgKept: "A safety copy is kept in Load → Safety copies.", dgImportAsk: (c, i) => `Replace your current data (${c}) with this file (${i})? A safety copy of your current campaign is kept.`, dgSummary: (w, f, m) => `${w} wins · ${f} / ${m} story fragments`, dgBackups: "Safety copies", idbFound: (b) => `Your saved data seems to have been erased by the browser. A backup was found: ${b} — Restore it?`, dgBackupAsk: (c, b) => `Replace your current campaign (${c}) with this safety copy (${b})?`, dgRestore: "Restore", dgUnreadable: "Your saved campaign could not be read. It is kept in the safety copies (Load panel). Start a new campaign anyway?", dgNew: "New campaign", dgConflict: "The campaign was changed in another window or tab. Reload to avoid overwriting it.", dgReload: "Reload", dgRiskFile: "This copy runs from a file or a viewer app. Such apps often erase saved progress when the file is replaced or the app restarts. Play the web version added to your Home Screen, and use Save often.", dgRiskWeb: "Not installed: Safari may erase this site's data after 7 days without a visit. Add the game to your Home Screen and use Save.", dgSaveNow: "Save now", loading: "Loading…", campHome: "Home", campReset: "Restart campaign",
     campResetConfirm: "Restart the campaign from scratch? Your campaign deck, collection and shards will be lost.",
     campRewardBtn: "Choose a reward", campBackBtn: "Back to campaign", campVictoryBody: "You won the fight! Choose your reward.",
     campDefeatBody: "You lost this fight. Nothing is lost: try again!",
@@ -2617,7 +2745,7 @@ STRINGS.fr = {
     wsAdd: "Ajouter", fltCrafted: "Craftés ✦", fltBase: "Originaux", fltInDeck: "Dans le deck", fltOutDeck: "Hors deck", campTitle: "Campagne", campFightN: (n) => `Combat ${n}`, campNext: "Prochain combat", campResume: "Reprendre le combat", campDeck: "Deck", campMerchant: "Marchand",
     campTenacity: (r) => `Récompense de ténacité : +1 shard (${r})`,
     campFragments: (n, total) => `Fragments d'histoire : ${n} / ${total}`, campWorkshop: "Atelier", wsTitle: "Atelier", wsHint: "Dépensez des shards de la rareté d'un programme pour lui ajouter un lien ou un symbole (une seule amélioration par programme). Les programmes rares et ultra-rares peuvent payer le double en shards de la rareté inférieure.", wsHintScrap: "Broyez un exemplaire en trop (hors deck) pour récupérer des shards : 1 shard de sa rareté, plus la moitié du coût de son amélioration.", wsLink: "Lien", wsOwned: (n, d) => `×${n} · ${d} dans le deck`, wsDisenchant: "Broyer", wsDisConfirm: (name, gain) => `Broyer ${name} ? Le programme est détruit et vous obtenez ${gain}.`, wsMaxed: "Plus d'amélioration possible", wsModeUp: "Améliorer un programme", wsModeScrap: "Broyer un programme", wsFxUp: "Programme amélioré", wsFxScrap: "Programme broyé", wsOr: "ou", wsNoScrap: "Aucun exemplaire en trop à broyer (les programmes du deck sont protégés).", merchPickCard: (r) => `Choix parmi 5 programmes (${r})`, merchPickTitle: "Choisissez votre programme", merchPickHint: "Choisissez 1 programme parmi ces 5. Les 4 autres sont perdus, sans shard en compensation.",
-    campTokensTitle: "Shards", campNextSub: "Affronter le prochain adversaire", campResumeSub: "Reprendre le combat en cours", campRewardSub: "Choisir votre récompense", campDeckSub: "Vos programmes et deck de campagne", campMerchantSub: "Acheter des programmes avec des shards", campWorkshopSub: "Améliorer ou broyer des programmes", merchBlockShards: "Achat de shards", merchBlockRandom: "Achat de programme aléatoire", merchBlockPick: "Achat de programme semi-aléatoire (1 parmi 5)", campJoinNote: "Vous pouvez l'ajouter à votre deck de campagne.", campJoinBadge: "Rejoint la collection", sndTitle: "Son", sndMute: "Tout couper", sndMaster: "Volume général", sndSfx: "Effets sonores", sndMusic: "Musique", sndSoon: "(à venir)", loading: "Chargement…", campHome: "Accueil", campReset: "Recommencer la campagne",
+    campTokensTitle: "Shards", campNextSub: "Affronter le prochain adversaire", campResumeSub: "Reprendre le combat en cours", campRewardSub: "Choisir votre récompense", campDeckSub: "Vos programmes et deck de campagne", campMerchantSub: "Acheter des programmes avec des shards", campWorkshopSub: "Améliorer ou broyer des programmes", merchBlockShards: "Achat de shards", merchBlockRandom: "Achat de programme aléatoire", merchBlockPick: "Achat de programme semi-aléatoire (1 parmi 5)", campJoinNote: "Vous pouvez l'ajouter à votre deck de campagne.", campJoinBadge: "Rejoint la collection", sndTitle: "Son", sndMute: "Tout couper", sndMaster: "Volume général", sndSfx: "Effets sonores", sndMusic: "Musique", sndSoon: "(à venir)", dataExp: "Exporter", dataImp: "Importer", dataHint: "Code de sauvegarde (campagne, BD, réglages)", dataCopied: "Code copié.", dataBad: "Code invalide.", dataNewer: "Cette sauvegarde vient d'une version plus récente du jeu. Mettez d'abord le jeu à jour.", dataAsk: "Remplacer votre campagne, BD et réglages par cette sauvegarde ?", dataTitle: "Sauvegarde locale", dataRemind: "Vous avez joué plus d'une heure depuis votre dernière sauvegarde. Le navigateur peut supprimer les données stockées sans prévenir : exportez un code de sauvegarde et gardez-le en lieu sûr.", dataNow: "Exporter maintenant", dataLater: "Plus tard", dataLoad: "Charger", dataSave: "Sauvegarder", dataChoose: "Choisir un fichier…", dataDl: "Télécharger le fichier", dataShare: "Partager", dataCopy: "Copier le code", dataLoadHint: "Choisissez un fichier de sauvegarde LINK//9.", dataSaveHint: "Campagne, BD et réglages dans un petit fichier.", dataSaved: "Fichier enregistré.", pwaTitle: "Jeu hors-ligne", pwaInstallAsk: (s) => `Télécharger tout le jeu (${s}) pour jouer hors-ligne ? Wi‑Fi recommandé.`, pwaUpdateAsk: (b, s) => `Une nouvelle version (build ${b}) est disponible. Télécharger la mise à jour (${s}) maintenant ?`, pwaDownload: "Télécharger", pwaUpdate: "Mettre à jour", pwaLater: "Plus tard", pwaCancel: "Annuler", pwaProgress: (p) => `Téléchargement… ${p} %`, pwaFail: "Téléchargement interrompu. Vérifiez votre connexion et réessayez.", pwaDlBtn: "Télécharger pour jouer hors-ligne", pwaCheckBtn: "Vérifier les mises à jour", pwaUpToDate: "À jour.", pwaVersion: (b) => `Version hors-ligne : build ${b}`, pwaNoPkg: "Paquet hors-ligne indisponible ici.", dgDelete: "Supprimer la campagne", dgKept: "Une copie de sécurité est conservée dans Charger → Copies de sécurité.", dgImportAsk: (c, i) => `Remplacer vos données actuelles (${c}) par ce fichier (${i}) ? Une copie de sécurité de votre campagne actuelle est conservée.`, dgSummary: (w, f, m) => `${w} victoires · ${f} / ${m} fragments d'histoire`, dgBackups: "Copies de sécurité", idbFound: (b) => `Vos données semblent avoir été effacées par le navigateur. Une sauvegarde de secours a été retrouvée : ${b} — La restaurer ?`, dgBackupAsk: (c, b) => `Remplacer votre campagne actuelle (${c}) par cette copie de sécurité (${b}) ?`, dgRestore: "Restaurer", dgUnreadable: "Votre campagne sauvegardée est illisible. Elle est conservée dans les copies de sécurité (panneau Charger). Démarrer quand même une nouvelle campagne ?", dgNew: "Nouvelle campagne", dgConflict: "La campagne a été modifiée dans une autre fenêtre ou un autre onglet. Rechargez pour ne pas l'écraser.", dgReload: "Recharger", dgRiskFile: "Cette copie tourne depuis un fichier ou une application de visualisation. Ces applications effacent souvent la progression quand le fichier est remplacé ou que l'application redémarre. Jouez à la version web ajoutée à l'écran d'accueil et utilisez souvent Sauvegarder.", dgRiskWeb: "Non installé : Safari peut effacer les données de ce site après 7 jours sans visite. Ajoutez le jeu à l'écran d'accueil et utilisez Sauvegarder.", dgSaveNow: "Sauvegarder maintenant", loading: "Chargement…", campHome: "Accueil", campReset: "Recommencer la campagne",
     campResetConfirm: "Recommencer la campagne à zéro ? Votre deck de campagne, votre collection et vos shards seront perdus.",
     campRewardBtn: "Choisir une récompense", campBackBtn: "Retour à la campagne", campVictoryBody: "Vous avez gagné le combat ! Choisissez votre récompense.",
     campDefeatBody: "Vous avez perdu ce combat. Rien n'est perdu : réessayez !",
@@ -3064,7 +3192,7 @@ STRINGS.es = {
     wsAdd: "Añadir", fltCrafted: "Crafteados ✦", fltBase: "Originales", fltInDeck: "En el mazo", fltOutDeck: "Fuera del mazo", campTitle: "Campaña", campFightN: (n) => `Combate ${n}`, campNext: "Próximo combate", campResume: "Reanudar combate", campDeck: "Mazo", campMerchant: "Mercader",
     campTenacity: (r) => `Recompensa de tenacidad: +1 shard (${r})`,
     campFragments: (n, total) => `Fragmentos de historia: ${n} / ${total}`, campWorkshop: "Taller", wsTitle: "Taller", wsHint: "Gasta shards de la rareza de un programa para añadirle un enlace o un símbolo (una sola mejora por programa). Los programas raros y ultrararos pueden pagar el doble en shards de la rareza inferior.", wsHintScrap: "Desguaza una copia sobrante (fuera de tu mazo) para recuperar shards: 1 shard de su rareza, más la mitad de lo que costó su mejora.", wsLink: "Enlace", wsOwned: (n, d) => `×${n} · ${d} en el mazo`, wsDisenchant: "Desguazar", wsDisConfirm: (name, gain) => `¿Desguazar ${name}? El programa se destruye y obtienes ${gain}.`, wsMaxed: "No se puede mejorar más", wsModeUp: "Mejorar programa", wsModeScrap: "Desguazar programa", wsFxUp: "Programa mejorado", wsFxScrap: "Programa desguazado", wsOr: "o", wsNoScrap: "No hay copias sobrantes que desguazar (los programas del mazo están protegidos).", merchPickCard: (r) => `Elige entre 5 programas (${r})`, merchPickTitle: "Elige tu programa", merchPickHint: "Elige 1 de estos 5 programas. Los otros 4 se pierden, sin shard a cambio.",
-    campTokensTitle: "Shards", campNextSub: "Enfréntate al siguiente rival", campResumeSub: "Retomar el combate en curso", campRewardSub: "Elige tu recompensa", campDeckSub: "Tus programas y mazo de campaña", campMerchantSub: "Compra programas con shards", campWorkshopSub: "Mejora o desguaza programas", merchBlockShards: "Compra de shards", merchBlockRandom: "Compra de programa aleatorio", merchBlockPick: "Compra de programa semialeatorio (1 de 5)", campJoinNote: "Puedes añadirlo a tu mazo de campaña.", campJoinBadge: "Se une a la colección", sndTitle: "Sonido", sndMute: "Silenciar todo", sndMaster: "Volumen general", sndSfx: "Efectos de sonido", sndMusic: "Música", sndSoon: "(próximamente)", loading: "Cargando…", campHome: "Inicio", campReset: "Reiniciar campaña",
+    campTokensTitle: "Shards", campNextSub: "Enfréntate al siguiente rival", campResumeSub: "Retomar el combate en curso", campRewardSub: "Elige tu recompensa", campDeckSub: "Tus programas y mazo de campaña", campMerchantSub: "Compra programas con shards", campWorkshopSub: "Mejora o desguaza programas", merchBlockShards: "Compra de shards", merchBlockRandom: "Compra de programa aleatorio", merchBlockPick: "Compra de programa semialeatorio (1 de 5)", campJoinNote: "Puedes añadirlo a tu mazo de campaña.", campJoinBadge: "Se une a la colección", sndTitle: "Sonido", sndMute: "Silenciar todo", sndMaster: "Volumen general", sndSfx: "Efectos de sonido", sndMusic: "Música", sndSoon: "(próximamente)", dataExp: "Exportar", dataImp: "Importar", dataHint: "Código de guardado (campaña, cómic, ajustes)", dataCopied: "Código copiado.", dataBad: "Código no válido.", dataNewer: "Esta partida procede de una versión más reciente del juego. Actualiza primero el juego.", dataAsk: "¿Reemplazar tu campaña, cómic y ajustes con esta partida?", dataTitle: "Copia local", dataRemind: "Has jugado más de una hora desde tu última copia. El navegador puede borrar los datos guardados sin avisar: exporta un código y guárdalo en un lugar seguro.", dataNow: "Exportar ahora", dataLater: "Más tarde", dataLoad: "Cargar", dataSave: "Guardar", dataChoose: "Elegir un archivo…", dataDl: "Descargar archivo", dataShare: "Compartir", dataCopy: "Copiar código", dataLoadHint: "Elige un archivo de guardado de LINK//9.", dataSaveHint: "Campaña, cómic y ajustes en un archivo pequeño.", dataSaved: "Archivo guardado.", pwaTitle: "Juego sin conexión", pwaInstallAsk: (s) => `¿Descargar todo el juego (${s}) para jugar sin conexión? Se recomienda Wi‑Fi.`, pwaUpdateAsk: (b, s) => `Hay una nueva versión (build ${b}). ¿Descargar la actualización (${s}) ahora?`, pwaDownload: "Descargar", pwaUpdate: "Actualizar", pwaLater: "Más tarde", pwaCancel: "Cancelar", pwaProgress: (p) => `Descargando… ${p} %`, pwaFail: "Descarga interrumpida. Comprueba tu conexión e inténtalo de nuevo.", pwaDlBtn: "Descargar para jugar sin conexión", pwaCheckBtn: "Buscar actualizaciones", pwaUpToDate: "Actualizado.", pwaVersion: (b) => `Versión sin conexión: build ${b}`, pwaNoPkg: "Paquete sin conexión no disponible aquí.", dgDelete: "Eliminar campaña", dgKept: "Se guarda una copia de seguridad en Cargar → Copias de seguridad.", dgImportAsk: (c, i) => `¿Reemplazar tus datos actuales (${c}) por este archivo (${i})? Se conserva una copia de seguridad de tu campaña actual.`, dgSummary: (w, f, m) => `${w} victorias · ${f} / ${m} fragmentos de historia`, dgBackups: "Copias de seguridad", idbFound: (b) => `El navegador parece haber borrado tus datos. Se encontró una copia de seguridad: ${b} — ¿Restaurarla?`, dgBackupAsk: (c, b) => `¿Reemplazar tu campaña actual (${c}) por esta copia de seguridad (${b})?`, dgRestore: "Restaurar", dgUnreadable: "No se pudo leer tu campaña guardada. Se conserva en las copias de seguridad (panel Cargar). ¿Empezar una campaña nueva de todos modos?", dgNew: "Nueva campaña", dgConflict: "La campaña se modificó en otra ventana o pestaña. Recarga para no sobrescribirla.", dgReload: "Recargar", dgRiskFile: "Esta copia se ejecuta desde un archivo o una app visor. Esas apps suelen borrar el progreso al reemplazar el archivo o reiniciar la app. Juega la versión web añadida a la pantalla de inicio y usa Guardar a menudo.", dgRiskWeb: "No instalado: Safari puede borrar los datos de este sitio tras 7 días sin visitarlo. Añade el juego a la pantalla de inicio y usa Guardar.", dgSaveNow: "Guardar ahora", loading: "Cargando…", campHome: "Inicio", campReset: "Reiniciar campaña",
     campResetConfirm: "¿Reiniciar la campaña desde cero? Se perderán tu mazo de campaña, tu colección y tus shards.",
     campRewardBtn: "Elegir recompensa", campBackBtn: "Volver a la campaña", campVictoryBody: "¡Has ganado el combate! Elige tu recompensa.",
     campDefeatBody: "Has perdido este combate. No se pierde nada: ¡inténtalo de nuevo!",
@@ -3495,7 +3623,7 @@ STRINGS.it = {
     wsAdd: "Aggiungi", fltCrafted: "Craftati ✦", fltBase: "Originali", fltInDeck: "Nel mazzo", fltOutDeck: "Fuori dal mazzo", campTitle: "Campagna", campFightN: (n) => `Scontro ${n}`, campNext: "Prossimo scontro", campResume: "Riprendi scontro", campDeck: "Mazzo", campMerchant: "Mercante",
     campTenacity: (r) => `Ricompensa di tenacia: +1 shard (${r})`,
     campFragments: (n, total) => `Frammenti di storia: ${n} / ${total}`, campWorkshop: "Officina", wsTitle: "Officina", wsHint: "Spendi shard della rarità di un programma per aggiungergli un collegamento o un simbolo (un solo potenziamento per programma). I programmi rari e ultra-rari possono pagare il doppio in shard della rarità inferiore.", wsHintScrap: "Rottama una copia in eccesso (fuori dal mazzo) per riavere degli shard: 1 shard della sua rarità, più metà del costo del suo potenziamento.", wsLink: "Collegamento", wsOwned: (n, d) => `×${n} · ${d} nel mazzo`, wsDisenchant: "Rottama", wsDisConfirm: (name, gain) => `Rottamare ${name}? Il programma viene distrutto e ottieni ${gain}.`, wsMaxed: "Nessun potenziamento possibile", wsModeUp: "Potenzia programma", wsModeScrap: "Rottama programma", wsFxUp: "Programma potenziato", wsFxScrap: "Programma rottamato", wsOr: "o", wsNoScrap: "Nessuna copia in eccesso da rottamare (i programmi nel mazzo sono protetti).", merchPickCard: (r) => `Scegli tra 5 programmi (${r})`, merchPickTitle: "Scegli il tuo programma", merchPickHint: "Scegli 1 di questi 5 programmi. Gli altri 4 vanno persi, senza shard in cambio.",
-    campTokensTitle: "Shard", campNextSub: "Affronta il prossimo avversario", campResumeSub: "Riprendi lo scontro in corso", campRewardSub: "Scegli la ricompensa", campDeckSub: "I tuoi programmi e il mazzo campagna", campMerchantSub: "Compra programmi con gli shard", campWorkshopSub: "Potenzia o rottama programmi", merchBlockShards: "Acquisto di shard", merchBlockRandom: "Acquisto di programma casuale", merchBlockPick: "Acquisto di programma semi-casuale (1 su 5)", campJoinNote: "Puoi aggiungerlo al tuo mazzo campagna.", campJoinBadge: "Entra nella collezione", sndTitle: "Audio", sndMute: "Silenzia tutto", sndMaster: "Volume generale", sndSfx: "Effetti sonori", sndMusic: "Musica", sndSoon: "(in arrivo)", loading: "Caricamento…", campHome: "Home", campReset: "Ricomincia campagna",
+    campTokensTitle: "Shard", campNextSub: "Affronta il prossimo avversario", campResumeSub: "Riprendi lo scontro in corso", campRewardSub: "Scegli la ricompensa", campDeckSub: "I tuoi programmi e il mazzo campagna", campMerchantSub: "Compra programmi con gli shard", campWorkshopSub: "Potenzia o rottama programmi", merchBlockShards: "Acquisto di shard", merchBlockRandom: "Acquisto di programma casuale", merchBlockPick: "Acquisto di programma semi-casuale (1 su 5)", campJoinNote: "Puoi aggiungerlo al tuo mazzo campagna.", campJoinBadge: "Entra nella collezione", sndTitle: "Audio", sndMute: "Silenzia tutto", sndMaster: "Volume generale", sndSfx: "Effetti sonori", sndMusic: "Musica", sndSoon: "(in arrivo)", dataExp: "Esporta", dataImp: "Importa", dataHint: "Codice di salvataggio (campagna, fumetto, impostazioni)", dataCopied: "Codice copiato.", dataBad: "Codice non valido.", dataNewer: "Questo salvataggio proviene da una versione più recente del gioco. Aggiorna prima il gioco.", dataAsk: "Sostituire campagna, fumetto e impostazioni con questo salvataggio?", dataTitle: "Backup locale", dataRemind: "Hai giocato per più di un'ora dall'ultimo backup. Il browser può cancellare i dati salvati senza preavviso: esporta un codice e conservalo in un posto sicuro.", dataNow: "Esporta ora", dataLater: "Più tardi", dataLoad: "Carica", dataSave: "Salva", dataChoose: "Scegli un file…", dataDl: "Scarica il file", dataShare: "Condividi", dataCopy: "Copia codice", dataLoadHint: "Scegli un file di salvataggio LINK//9.", dataSaveHint: "Campagna, fumetto e impostazioni in un piccolo file.", dataSaved: "File salvato.", pwaTitle: "Gioco offline", pwaInstallAsk: (s) => `Scaricare tutto il gioco (${s}) per giocare offline? Consigliato il Wi‑Fi.`, pwaUpdateAsk: (b, s) => `È disponibile una nuova versione (build ${b}). Scaricare l'aggiornamento (${s}) ora?`, pwaDownload: "Scarica", pwaUpdate: "Aggiorna", pwaLater: "Più tardi", pwaCancel: "Annulla", pwaProgress: (p) => `Download… ${p}%`, pwaFail: "Download interrotto. Controlla la connessione e riprova.", pwaDlBtn: "Scarica per giocare offline", pwaCheckBtn: "Cerca aggiornamenti", pwaUpToDate: "Aggiornato.", pwaVersion: (b) => `Versione offline: build ${b}`, pwaNoPkg: "Pacchetto offline non disponibile qui.", dgDelete: "Elimina campagna", dgKept: "Una copia di sicurezza resta in Carica → Copie di sicurezza.", dgImportAsk: (c, i) => `Sostituire i dati attuali (${c}) con questo file (${i})? Una copia di sicurezza della campagna attuale viene conservata.`, dgSummary: (w, f, m) => `${w} vittorie · ${f} / ${m} frammenti di storia`, dgBackups: "Copie di sicurezza", idbFound: (b) => `Il browser sembra aver cancellato i tuoi dati. È stata trovata una copia di sicurezza: ${b} — Ripristinarla?`, dgBackupAsk: (c, b) => `Sostituire la campagna attuale (${c}) con questa copia di sicurezza (${b})?`, dgRestore: "Ripristina", dgUnreadable: "Impossibile leggere la campagna salvata. È conservata nelle copie di sicurezza (pannello Carica). Iniziare comunque una nuova campagna?", dgNew: "Nuova campagna", dgConflict: "La campagna è stata modificata in un'altra finestra o scheda. Ricarica per non sovrascriverla.", dgReload: "Ricarica", dgRiskFile: "Questa copia gira da un file o da un'app visualizzatore. Queste app spesso cancellano i progressi quando il file viene sostituito o l'app si riavvia. Gioca la versione web aggiunta alla schermata Home e usa spesso Salva.", dgRiskWeb: "Non installato: Safari può cancellare i dati di questo sito dopo 7 giorni senza visite. Aggiungi il gioco alla schermata Home e usa Salva.", dgSaveNow: "Salva ora", loading: "Caricamento…", campHome: "Home", campReset: "Ricomincia campagna",
     campResetConfirm: "Ricominciare la campagna da zero? Mazzo, collezione e shard della campagna andranno persi.",
     campRewardBtn: "Scegli una ricompensa", campBackBtn: "Torna alla campagna", campVictoryBody: "Hai vinto lo scontro! Scegli la tua ricompensa.",
     campDefeatBody: "Hai perso questo scontro. Non si perde nulla: riprova!",
@@ -3928,7 +4056,7 @@ STRINGS.de = {
     wsAdd: "Hinzufügen", fltCrafted: "Gecraftet ✦", fltBase: "Original", fltInDeck: "Im Deck", fltOutDeck: "Nicht im Deck", campTitle: "Kampagne", campFightN: (n) => `Kampf ${n}`, campNext: "Nächster Kampf", campResume: "Kampf fortsetzen", campDeck: "Deck", campMerchant: "Händler",
     campTenacity: (r) => `Zähigkeitsbelohnung: +1 Shard (${r})`,
     campFragments: (n, total) => `Story-Fragmente: ${n} / ${total}`, campWorkshop: "Werkstatt", wsTitle: "Werkstatt", wsHint: "Gib Shards der Seltenheit eines Programms aus, um ihm eine Verbindung oder ein Symbol hinzuzufügen (eine Verbesserung pro Programm). Seltene und ultra-seltene Programme können stattdessen das Doppelte in Shards der niedrigeren Seltenheit zahlen.", wsHintScrap: "Verschrotte ein überzähliges Exemplar (nicht im Deck), um Shards zurückzubekommen: 1 Shard seiner Seltenheit plus die Hälfte der Kosten seiner Verbesserung.", wsLink: "Verbindung", wsOwned: (n, d) => `×${n} · ${d} im Deck`, wsDisenchant: "Verschrotten", wsDisConfirm: (name, gain) => `${name} verschrotten? Das Programm wird zerstört und du erhältst ${gain}.`, wsMaxed: "Keine Verbesserung mehr möglich", wsModeUp: "Programm verbessern", wsModeScrap: "Programm verschrotten", wsFxUp: "Programm verbessert", wsFxScrap: "Programm verschrottet", wsOr: "oder", wsNoScrap: "Kein überzähliges Exemplar zum Verschrotten (Programme im Deck sind geschützt).", merchPickCard: (r) => `Wahl aus 5 Programmen (${r})`, merchPickTitle: "Wähle dein Programm", merchPickHint: "Wähle 1 dieser 5 Programme. Die anderen 4 verfallen, ohne Shards als Ausgleich.",
-    campTokensTitle: "Shards", campNextSub: "Tritt gegen den nächsten Gegner an", campResumeSub: "Laufenden Kampf fortsetzen", campRewardSub: "Belohnung wählen", campDeckSub: "Deine Programme und Kampagnen-Deck", campMerchantSub: "Programme gegen Shards kaufen", campWorkshopSub: "Programme verbessern oder verschrotten", merchBlockShards: "Shards kaufen", merchBlockRandom: "Zufälliges Programm kaufen", merchBlockPick: "Halb-zufälliges Programm kaufen (1 aus 5)", campJoinNote: "Du kannst es deinem Kampagnen-Deck hinzufügen.", campJoinBadge: "Zur Sammlung hinzugefügt", sndTitle: "Ton", sndMute: "Alles stummschalten", sndMaster: "Gesamtlautstärke", sndSfx: "Soundeffekte", sndMusic: "Musik", sndSoon: "(folgt)", loading: "Laden…", campHome: "Start", campReset: "Kampagne neu starten",
+    campTokensTitle: "Shards", campNextSub: "Tritt gegen den nächsten Gegner an", campResumeSub: "Laufenden Kampf fortsetzen", campRewardSub: "Belohnung wählen", campDeckSub: "Deine Programme und Kampagnen-Deck", campMerchantSub: "Programme gegen Shards kaufen", campWorkshopSub: "Programme verbessern oder verschrotten", merchBlockShards: "Shards kaufen", merchBlockRandom: "Zufälliges Programm kaufen", merchBlockPick: "Halb-zufälliges Programm kaufen (1 aus 5)", campJoinNote: "Du kannst es deinem Kampagnen-Deck hinzufügen.", campJoinBadge: "Zur Sammlung hinzugefügt", sndTitle: "Ton", sndMute: "Alles stummschalten", sndMaster: "Gesamtlautstärke", sndSfx: "Soundeffekte", sndMusic: "Musik", sndSoon: "(folgt)", dataExp: "Exportieren", dataImp: "Importieren", dataHint: "Speichercode (Kampagne, Comic, Einstellungen)", dataCopied: "Code kopiert.", dataBad: "Ungültiger Code.", dataNewer: "Dieser Spielstand stammt aus einer neueren Spielversion. Bitte zuerst das Spiel aktualisieren.", dataAsk: "Kampagne, Comic und Einstellungen durch diesen Spielstand ersetzen?", dataTitle: "Lokale Sicherung", dataRemind: "Du hast seit der letzten Sicherung über eine Stunde gespielt. Der Browser kann gespeicherte Daten ohne Vorwarnung löschen – exportiere einen Speichercode und bewahre ihn sicher auf.", dataNow: "Jetzt exportieren", dataLater: "Später", dataLoad: "Laden", dataSave: "Speichern", dataChoose: "Datei wählen…", dataDl: "Datei herunterladen", dataShare: "Teilen", dataCopy: "Code kopieren", dataLoadHint: "Wähle eine LINK//9-Sicherungsdatei.", dataSaveHint: "Kampagne, Comic und Einstellungen in einer kleinen Datei.", dataSaved: "Datei gespeichert.", pwaTitle: "Offline-Spiel", pwaInstallAsk: (s) => `Das ganze Spiel (${s}) für Offline-Spiel herunterladen? WLAN empfohlen.`, pwaUpdateAsk: (b, s) => `Eine neue Version (Build ${b}) ist verfügbar. Update (${s}) jetzt herunterladen?`, pwaDownload: "Herunterladen", pwaUpdate: "Aktualisieren", pwaLater: "Später", pwaCancel: "Abbrechen", pwaProgress: (p) => `Lade herunter… ${p} %`, pwaFail: "Download unterbrochen. Verbindung prüfen und erneut versuchen.", pwaDlBtn: "Für Offline-Spiel herunterladen", pwaCheckBtn: "Nach Updates suchen", pwaUpToDate: "Auf dem neuesten Stand.", pwaVersion: (b) => `Offline-Version: Build ${b}`, pwaNoPkg: "Offline-Paket hier nicht verfügbar.", dgDelete: "Kampagne löschen", dgKept: "Eine Sicherheitskopie bleibt unter Laden → Sicherheitskopien erhalten.", dgImportAsk: (c, i) => `Aktuelle Daten (${c}) durch diese Datei (${i}) ersetzen? Eine Sicherheitskopie deiner aktuellen Kampagne bleibt erhalten.`, dgSummary: (w, f, m) => `${w} Siege · ${f} / ${m} Story-Fragmente`, dgBackups: "Sicherheitskopien", idbFound: (b) => `Der Browser hat deine Daten offenbar gelöscht. Eine Sicherung wurde gefunden: ${b} — Wiederherstellen?`, dgBackupAsk: (c, b) => `Aktuelle Kampagne (${c}) durch diese Sicherheitskopie (${b}) ersetzen?`, dgRestore: "Wiederherstellen", dgUnreadable: "Deine gespeicherte Kampagne ist nicht lesbar. Sie bleibt in den Sicherheitskopien erhalten (Panel Laden). Trotzdem eine neue Kampagne starten?", dgNew: "Neue Kampagne", dgConflict: "Die Kampagne wurde in einem anderen Fenster oder Tab geändert. Lade neu, um sie nicht zu überschreiben.", dgReload: "Neu laden", dgRiskFile: "Diese Kopie läuft aus einer Datei oder einer Viewer-App. Solche Apps löschen den Fortschritt oft, wenn die Datei ersetzt oder die App neu gestartet wird. Spiele die Web-Version vom Home-Bildschirm und nutze oft Speichern.", dgRiskWeb: "Nicht installiert: Safari kann die Daten dieser Seite nach 7 Tagen ohne Besuch löschen. Füge das Spiel zum Home-Bildschirm hinzu und nutze Speichern.", dgSaveNow: "Jetzt speichern", loading: "Laden…", campHome: "Start", campReset: "Kampagne neu starten",
     campResetConfirm: "Kampagne von vorn beginnen? Dein Kampagnen-Deck, deine Sammlung und deine Shards gehen verloren.",
     campRewardBtn: "Belohnung wählen", campBackBtn: "Zurück zur Kampagne", campVictoryBody: "Du hast den Kampf gewonnen! Wähle deine Belohnung.",
     campDefeatBody: "Du hast diesen Kampf verloren. Nichts ist verloren: Versuch es erneut!",
@@ -4361,7 +4489,7 @@ STRINGS.zh = {
     wsAdd: "添加", fltCrafted: "已强化 ✦", fltBase: "原版", fltInDeck: "在牌组中", fltOutDeck: "不在牌组中", campTitle: "战役", campFightN: (n) => `第${n}战`, campNext: "下一战", campResume: "继续战斗", campDeck: "牌库", campMerchant: "商人",
     campTenacity: (r) => `坚持奖励：+1 Shard（${r}）`,
     campFragments: (n, total) => `剧情碎片：${n} / ${total}`, campWorkshop: "工坊", wsTitle: "工坊", wsHint: "消耗与程序稀有度相同的Shard，为它增加一条连线或一个符号（每个程序只能升级一次）。稀有和超稀有程序也可改付双倍的低一级稀有度Shard。", wsHintScrap: "拆解多余的副本（不在牌库中）可返还Shard：1个该稀有度Shard，外加其升级花费的一半。", wsLink: "连线", wsOwned: (n, d) => `×${n} · 牌库中 ${d}`, wsDisenchant: "拆解", wsDisConfirm: (name, gain) => `拆解 ${name}？程序将被销毁，你将获得 ${gain}。`, wsMaxed: "无法再升级", wsModeUp: "升级程序", wsModeScrap: "拆解程序", wsFxUp: "程序已升级", wsFxScrap: "程序已拆解", wsOr: "或", wsNoScrap: "没有可拆解的多余副本（牌库中的程序受保护）。", merchPickCard: (r) => `5选1 ${r}程序`, merchPickTitle: "选择你的程序", merchPickHint: "从这5个程序中选择1个。其余4个作废，没有Shard补偿。",
-    campTokensTitle: "Shard", campNextSub: "挑战下一个对手", campResumeSub: "继续进行中的战斗", campRewardSub: "选择你的奖励", campDeckSub: "你的程序与战役牌库", campMerchantSub: "用Shard购买程序", campWorkshopSub: "升级或拆解程序", merchBlockShards: "购买Shard", merchBlockRandom: "购买随机程序", merchBlockPick: "购买半随机程序（5选1）", campJoinNote: "你可以把它加入战役牌库。", campJoinBadge: "已加入收藏", sndTitle: "声音", sndMute: "全部静音", sndMaster: "总音量", sndSfx: "音效", sndMusic: "音乐", sndSoon: "（即将推出）", loading: "加载中…", campHome: "主页", campReset: "重启战役",
+    campTokensTitle: "Shard", campNextSub: "挑战下一个对手", campResumeSub: "继续进行中的战斗", campRewardSub: "选择你的奖励", campDeckSub: "你的程序与战役牌库", campMerchantSub: "用Shard购买程序", campWorkshopSub: "升级或拆解程序", merchBlockShards: "购买Shard", merchBlockRandom: "购买随机程序", merchBlockPick: "购买半随机程序（5选1）", campJoinNote: "你可以把它加入战役牌库。", campJoinBadge: "已加入收藏", sndTitle: "声音", sndMute: "全部静音", sndMaster: "总音量", sndSfx: "音效", sndMusic: "音乐", sndSoon: "（即将推出）", dataExp: "导出", dataImp: "导入", dataHint: "存档代码（战役、漫画、设置）", dataCopied: "代码已复制。", dataBad: "代码无效。", dataNewer: "此存档来自更新版本的游戏，请先更新游戏。", dataAsk: "用此存档替换你的战役、漫画和设置？", dataTitle: "本地备份", dataRemind: "距离上次备份你已游玩超过一小时。浏览器可能会在不提醒的情况下清除本地数据——请导出存档代码并妥善保管。", dataNow: "立即导出", dataLater: "稍后", dataLoad: "读取", dataSave: "保存", dataChoose: "选择文件…", dataDl: "下载文件", dataShare: "分享", dataCopy: "复制代码", dataLoadHint: "请选择 LINK//9 存档文件。", dataSaveHint: "战役、漫画和设置保存在一个小文件中。", dataSaved: "文件已保存。", pwaTitle: "离线游玩", pwaInstallAsk: (s) => `下载整个游戏（${s}）以便离线游玩？建议使用 Wi‑Fi。`, pwaUpdateAsk: (b, s) => `有新版本（build ${b}）。现在下载更新（${s}）吗？`, pwaDownload: "下载", pwaUpdate: "更新", pwaLater: "稍后", pwaCancel: "取消", pwaProgress: (p) => `下载中… ${p}%`, pwaFail: "下载中断。请检查网络后重试。", pwaDlBtn: "下载以离线游玩", pwaCheckBtn: "检查更新", pwaUpToDate: "已是最新。", pwaVersion: (b) => `离线版本：build ${b}`, pwaNoPkg: "此处无法使用离线包。", dgDelete: "删除战役", dgKept: "安全副本保存在 读取 → 安全副本 中。", dgImportAsk: (c, i) => `用此文件（${i}）替换当前数据（${c}）？当前战役的安全副本会被保留。`, dgSummary: (w, f, m) => `${w} 胜 · ${f} / ${m} 故事碎片`, dgBackups: "安全副本", idbFound: (b) => `浏览器似乎清除了你的数据。已找到一份备份： ${b} — 是否恢复？`, dgBackupAsk: (c, b) => `用此安全副本（${b}）替换当前战役（${c}）？`, dgRestore: "恢复", dgUnreadable: "无法读取已保存的战役。它保存在安全副本中（读取面板）。仍要开始新战役吗？", dgNew: "新战役", dgConflict: "战役已在其他窗口或标签页中被修改。请重新加载以免覆盖。", dgReload: "重新加载", dgRiskFile: "此副本从文件或查看器应用运行。这类应用在文件被替换或应用重启时常会清除进度。请游玩已添加到主屏幕的网页版，并经常使用保存。", dgRiskWeb: "未安装：Safari 可能在 7 天未访问后清除本站数据。请将游戏添加到主屏幕并使用保存。", dgSaveNow: "立即保存", loading: "加载中…", campHome: "主页", campReset: "重启战役",
     campResetConfirm: "从头重启战役？你的战役牌库、收藏和Shard都将丢失。",
     campRewardBtn: "选择奖励", campBackBtn: "返回战役", campVictoryBody: "你赢得了战斗！请选择奖励。",
     campDefeatBody: "你输掉了这场战斗。没有任何损失：再试一次！",
@@ -4792,7 +4920,7 @@ STRINGS.ja = {
   wsAdd: "追加", fltCrafted: "強化済 ✦", fltBase: "オリジナル", fltInDeck: "デッキ内", fltOutDeck: "デッキ外", campTitle: "キャンペーン", campFightN: (n) => `第${n}戦`, campNext: "次の戦い", campResume: "戦いを再開", campDeck: "デッキ", campMerchant: "商人",
   campTenacity: (r) => `粘り強さの報酬：シャード+1（${r}）`,
   campFragments: (n, total) => `ストーリーの断片：${n} / ${total}`, campWorkshop: "工房", wsTitle: "工房", wsHint: "プログラムと同じレアリティのシャードを使って、リンクまたはシンボルを1つ追加できます（1個につき強化は1回まで）。レアとウルトラレアは、1つ下のレアリティのシャードを2倍支払うこともできます。", wsHintScrap: "デッキにない余分なプログラムをスクラップするとシャードが戻ります：そのレアリティのシャード1個＋強化コストの半分。", wsLink: "リンク", wsOwned: (n, d) => `×${n} ・ デッキ内 ${d}`, wsDisenchant: "スクラップ", wsDisConfirm: (name, gain) => `${name}をスクラップしますか？プログラムは破壊され、${gain}を獲得します。`, wsMaxed: "これ以上強化できません", wsModeUp: "プログラム強化", wsModeScrap: "プログラムスクラップ", wsFxUp: "プログラム強化完了", wsFxScrap: "プログラムをスクラップ", wsOr: "または", wsNoScrap: "スクラップできる余分なプログラムがありません（デッキ内のプログラムは対象外）。", merchPickCard: (r) => `${r}プログラム5個から選ぶ`, merchPickTitle: "プログラムを選択", merchPickHint: "この5個から1個を選びます。残り4個は失われ、シャードは戻りません。",
-  campTokensTitle: "シャード", campNextSub: "次の対戦相手と戦う", campResumeSub: "進行中の戦闘を再開", campRewardSub: "報酬を選ぶ", campDeckSub: "プログラムとキャンペーンデッキ", campMerchantSub: "シャードでプログラムを購入", campWorkshopSub: "プログラムの強化・スクラップ", merchBlockShards: "シャードを購入", merchBlockRandom: "ランダムなプログラムを購入", merchBlockPick: "セミランダムなプログラムを購入（5個から1個）", campJoinNote: "キャンペーンデッキに加えることができます。", campJoinBadge: "コレクションに追加", sndTitle: "サウンド", sndMute: "すべてミュート", sndMaster: "マスター音量", sndSfx: "効果音", sndMusic: "音楽", sndSoon: "（近日対応）", loading: "読み込み中…", campHome: "ホーム", campReset: "キャンペーンをやり直す",
+  campTokensTitle: "シャード", campNextSub: "次の対戦相手と戦う", campResumeSub: "進行中の戦闘を再開", campRewardSub: "報酬を選ぶ", campDeckSub: "プログラムとキャンペーンデッキ", campMerchantSub: "シャードでプログラムを購入", campWorkshopSub: "プログラムの強化・スクラップ", merchBlockShards: "シャードを購入", merchBlockRandom: "ランダムなプログラムを購入", merchBlockPick: "セミランダムなプログラムを購入（5個から1個）", campJoinNote: "キャンペーンデッキに加えることができます。", campJoinBadge: "コレクションに追加", sndTitle: "サウンド", sndMute: "すべてミュート", sndMaster: "マスター音量", sndSfx: "効果音", sndMusic: "音楽", sndSoon: "（近日対応）", dataExp: "エクスポート", dataImp: "インポート", dataHint: "セーブコード（キャンペーン・コミック・設定）", dataCopied: "コードをコピーしました。", dataBad: "無効なコードです。", dataNewer: "このセーブはより新しいバージョンのものです。先にゲームを更新してください。", dataAsk: "キャンペーン・コミック・設定をこのセーブで置き換えますか？", dataTitle: "ローカルバックアップ", dataRemind: "前回のバックアップから1時間以上プレイしています。ブラウザは予告なく保存データを削除することがあります。セーブコードをエクスポートして安全な場所に保管してください。", dataNow: "今すぐエクスポート", dataLater: "あとで", dataLoad: "ロード", dataSave: "セーブ", dataChoose: "ファイルを選択…", dataDl: "ファイルをダウンロード", dataShare: "共有", dataCopy: "コードをコピー", dataLoadHint: "LINK//9のセーブファイルを選んでください。", dataSaveHint: "キャンペーン・コミック・設定を小さなファイルにまとめます。", dataSaved: "ファイルを保存しました。", pwaTitle: "オフラインプレイ", pwaInstallAsk: (s) => `オフラインで遊ぶためにゲーム全体（${s}）をダウンロードしますか？Wi‑Fi推奨。`, pwaUpdateAsk: (b, s) => `新しいバージョン（build ${b}）があります。アップデート（${s}）を今すぐダウンロードしますか？`, pwaDownload: "ダウンロード", pwaUpdate: "更新", pwaLater: "あとで", pwaCancel: "キャンセル", pwaProgress: (p) => `ダウンロード中… ${p}%`, pwaFail: "ダウンロードが中断されました。接続を確認して再試行してください。", pwaDlBtn: "オフライン用にダウンロード", pwaCheckBtn: "更新を確認", pwaUpToDate: "最新です。", pwaVersion: (b) => `オフライン版: build ${b}`, pwaNoPkg: "ここではオフラインパッケージを利用できません。", dgDelete: "キャンペーンを削除", dgKept: "セーフティコピーはロード → セーフティコピーに保存されます。", dgImportAsk: (c, i) => `現在のデータ（${c}）をこのファイル（${i}）で置き換えますか？現在のキャンペーンのセーフティコピーは保持されます。`, dgSummary: (w, f, m) => `${w}勝 · ストーリー断片 ${f} / ${m}`, dgBackups: "セーフティコピー", idbFound: (b) => `ブラウザがデータを消去したようです。バックアップが見つかりました： ${b} — 復元しますか？`, dgBackupAsk: (c, b) => `現在のキャンペーン（${c}）をこのセーフティコピー（${b}）で置き換えますか？`, dgRestore: "復元", dgUnreadable: "保存されたキャンペーンを読み込めませんでした。セーフティコピーに保管されています（ロードパネル）。それでも新しいキャンペーンを始めますか？", dgNew: "新規キャンペーン", dgConflict: "別のウィンドウまたはタブでキャンペーンが変更されました。上書きを避けるため再読み込みしてください。", dgReload: "再読み込み", dgRiskFile: "このコピーはファイルまたはビューアアプリから実行されています。ファイルの置き換えやアプリの再起動で進行状況が消えることがよくあります。ホーム画面に追加したWeb版で遊び、こまめにセーブしてください。", dgRiskWeb: "未インストール：Safariは7日間訪問がないとこのサイトのデータを消すことがあります。ホーム画面に追加し、セーブしてください。", dgSaveNow: "今すぐセーブ", loading: "読み込み中…", campHome: "ホーム", campReset: "キャンペーンをやり直す",
   campResetConfirm: "キャンペーンを最初からやり直しますか？キャンペーンのデッキ、コレクション、シャードは失われます。",
   campRewardBtn: "報酬を選ぶ", campBackBtn: "キャンペーンに戻る", campVictoryBody: "戦いに勝利しました！報酬を選んでください。",
   campDefeatBody: "この戦いに敗れました。失うものはありません。もう一度挑戦しましょう！",
@@ -8092,7 +8220,7 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
    * Affiché en bas de l'écran d'accueil. Un nouveau chat / un redémarrage à froid doit lire la
    * valeur ci-dessous et livrer la valeur + 1. Ne jamais la laisser inchangée, ne jamais la baisser.
    * ============================================================================================ */
-  const BUILD_NUMBER = 133;
+  const BUILD_NUMBER = 143;
 
   const STORAGE_KEY = "ccn_generic_engine_save_v1";            // partie en cours du mode random
   const CAMP_GAME_KEY = "ccn_campaign_game_v1";               // combat en cours du mode campaign (cloisonné du mode random)
@@ -8238,8 +8366,167 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
       const r = document.getElementById("snd" + id); r.value = Math.round(audio[key] * 100); r.disabled = false;
       r.style.setProperty("--v", r.value + "%"); document.getElementById("snd" + id + "Out").textContent = r.value;
     });
+    if (typeof pwaRefreshRow === "function") pwaRefreshRow();
     queueFitSkinButtons();
   }
+  /* Export / import compact des données (campagne, BD, réglages) : « L9 » + version du format + « z » (deflate) ou « r » (brut) + base64url
+     du JSON [build, campagne, bd, audio, langue, skin, tuto]. Le format (FMT) sert à détecter les sauvegardes d'une version incompatible. */
+  const DATA_FMT = 1, DATA_KEYS = ["ccn_campaign_v1", "ccn_comic_v1", "ccn_audio_v1", "ccn_locale_v1", "ccn_skin_enabled_v1", "ccn_tutorial_seen_v1"];
+  const b64u = (u8) => { let s = ""; u8.forEach((b) => { s += String.fromCharCode(b); }); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+  const unb64u = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  async function pipe(u8, S) { const st = new Blob([u8]).stream().pipeThrough(new S("deflate-raw")); return new Uint8Array(await new Response(st).arrayBuffer()); }
+  async function dataExport() {
+    const arr = [BUILD_NUMBER].concat(DATA_KEYS.map((k) => { try { const v = localStorage.getItem(k); return v === null ? null : (k === "ccn_locale_v1" || k === "ccn_skin_enabled_v1" || k === "ccn_tutorial_seen_v1" ? v : JSON.parse(v)); } catch (e) { return null; } }));
+    const raw = new TextEncoder().encode(JSON.stringify(arr));
+    let head = "L9" + DATA_FMT, body;
+    if (window.CompressionStream) { body = await pipe(raw, CompressionStream); head += "z"; } else head += "r", body = raw;
+    return head + b64u(body);
+  }
+  async function dataDecode(code) {
+    const m = /^L9(\d+)([zr])([A-Za-z0-9_-]+)$/.exec((code || "").trim()); if (!m) return { err: "dataBad" };
+    if (+m[1] > DATA_FMT) return { err: "dataNewer" };
+    try {
+      let u8 = unb64u(m[3]); if (m[2] === "z") { if (!window.DecompressionStream) return { err: "dataBad" }; u8 = await pipe(u8, DecompressionStream); }
+      const a = JSON.parse(new TextDecoder().decode(u8)); if (!Array.isArray(a) || a.length !== DATA_KEYS.length + 1) return { err: "dataBad" };
+      if (a[1] !== null && !campValid(a[1])) return { err: "dataBad" };
+      if (a[2] !== null && !(typeof a[2] === "object" && Number.isFinite(a[2].steps))) return { err: "dataBad" };
+      return { build: a[0], vals: a.slice(1) };
+    } catch (e) { return { err: "dataBad" }; }
+  }
+  const $d = (id) => document.getElementById(id);
+  const dataSay = (id, k) => { $d(id).textContent = k ? t(k) : ""; };
+  function dataApply(r) {
+    try { campBackup(localStorage.getItem("ccn_campaign_v1"), "import"); } catch (e) { /* ignoré */ }
+    DATA_KEYS.forEach((k, i) => { const v = r.vals[i]; try { if (v !== null) localStorage.setItem(k, typeof v === "string" ? v : JSON.stringify(v)); } catch (e) { /* ignoré */ } });   // une valeur absente du fichier ne supprime jamais l'existant
+    playReset(); location.reload();
+  }
+  const closeOv = (id) => { $d(id).hidden = true; };
+  [["load", "loadOverlay"], ["save", "saveOverlay"]].forEach(([n, id]) => {
+    $d(n + "Close").addEventListener("click", () => closeOv(id));
+    $d(id).addEventListener("click", (e) => { if (e.target === $d(id)) closeOv(id); });
+  });
+  const dataSumOf = (c, m) => t("dgSummary", (c && c.wins) | 0, (m && m.steps) | 0, COMIC_MAX_STEPS);
+  function dataSumCur() { let c = null; try { c = JSON.parse(localStorage.getItem("ccn_campaign_v1") || "null"); } catch (e) { /* ignoré */ } return dataSumOf(c, comic); }
+  /* ---- Sauvegarde de secours dans IndexedDB : copie auto (3 récentes + la plus avancée) ; proposée au lancement si le localStorage a été effacé ---- */
+  var idbOn = !SCENE && typeof indexedDB !== "undefined", idbT = 0;
+  function idbOpen() {
+    return new Promise((res, rej) => {
+      try { const q = indexedDB.open("link9_backup", 1); q.onupgradeneeded = () => { q.result.createObjectStore("snap", { keyPath: "id" }); }; q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); q.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); }
+    });
+  }
+  async function idbAll() {
+    if (!idbOn) return [];
+    try { const db = await idbOpen(); return await new Promise((res) => { const r = db.transaction("snap").objectStore("snap").getAll(); r.onsuccess = () => { db.close(); res((r.result || []).filter((x) => x && typeof x.code === "string").sort((a, b) => b.t - a.t)); }; r.onerror = () => { db.close(); res([]); }; }); } catch (e) { return []; }
+  }
+  async function idbPut(list) {
+    const db = await idbOpen();
+    await new Promise((res, rej) => { const tx = db.transaction("snap", "readwrite"), st = tx.objectStore("snap"); st.clear(); list.forEach((x, i) => st.put(Object.assign({}, x, { id: i }))); tx.oncomplete = () => { db.close(); res(); }; tx.onerror = tx.onabort = () => { db.close(); rej(tx.error); }; });
+  }
+  function idbMirrorSoon() { if (!idbOn) return; clearTimeout(idbT); idbT = setTimeout(idbMirror, 1500); }
+  async function idbMirror() {
+    if (!idbOn || campPending) return;
+    try {
+      const rc = localStorage.getItem("ccn_campaign_v1"), rm = localStorage.getItem("ccn_comic_v1"); let c = null, m = null;
+      try { c = JSON.parse(rc || "null"); } catch (e) { /* ignoré */ } try { m = JSON.parse(rm || "null"); } catch (e) { /* ignoré */ }
+      const wins = (c && c.wins) | 0, steps = (m && m.steps) | 0, prog = wins * 1000 + steps; if (!prog) return;   // rien à protéger
+      const sig = rc + "|" + rm, list = await idbAll(); if (list.length && list[0].sig === sig) return;
+      list.unshift({ t: Date.now(), code: await dataExport(), sig, wins, steps, prog });
+      const keep = list.slice(0, 3), best = list.reduce((a, b) => (!a || b.prog > a.prog ? b : a), null);
+      if (best && !keep.includes(best)) keep.push(best);
+      await idbPut(keep);
+    } catch (e) { /* IndexedDB indisponible : sans conséquence */ }
+  }
+  const idbLabel = (x) => new Date(x.t).toLocaleString() + " · " + t("dgSummary", x.wins | 0, x.steps | 0, COMIC_MAX_STEPS);
+  async function idbRestore(x) { const r = await dataDecode(x.code); if (!r.err) dataApply(r); }
+  async function idbBootCheck() {
+    if (!idbOn) return;
+    let alive = null; try { alive = localStorage.getItem("ccn_alive_v1"); localStorage.setItem("ccn_alive_v1", "1"); } catch (e) { return; }
+    if (alive) { idbMirrorSoon(); return; }                      // le stockage local est intact
+    const list = await idbAll(); if (!list.length) { idbMirrorSoon(); return; }
+    const best = list.reduce((a, b) => (!a || b.prog > a.prog ? b : a), null);
+    dangerConfirm({ safe: true, text: t("idbFound", idbLabel(best)), ok: t("dgRestore"), onOk: () => idbRestore(best), onCancel: () => idbMirrorSoon() });
+  }
+  document.addEventListener("visibilitychange", () => { if (document.hidden && idbT) { clearTimeout(idbT); idbT = 0; idbMirror(); } });
+  window.addEventListener("load", () => setTimeout(idbBootCheck, 700));
+  async function loadBackupsRender() {
+    const box = $d("loadBackups"), list = campBackups(), idb = await idbAll(); box.hidden = !list.length && !idb.length; if (box.hidden) return;
+    box.innerHTML = `<h3>${esc(t("dgBackups"))}</h3>`;
+    idb.forEach((x) => {
+      const bt = document.createElement("button"); bt.className = "newgame-btn snd-mini";
+      bt.textContent = `${t("dgRestore")} · 💾 ${idbLabel(x)}`;
+      bt.addEventListener("click", () => dangerConfirm({ text: t("dgImportAsk", dataSumCur(), t("dgSummary", x.wins | 0, x.steps | 0, COMIC_MAX_STEPS)), ok: t("dgRestore"), onOk: () => idbRestore(x) }));
+      box.appendChild(bt);
+    });
+    list.forEach((b) => {
+      const bt = document.createElement("button"); bt.className = "newgame-btn snd-mini";
+      bt.textContent = `${t("dgRestore")} · ${new Date(b.t).toLocaleString()} · ${b.wins} ✔`;
+      bt.addEventListener("click", () => dangerConfirm({ text: t("dgBackupAsk", dataSumCur(), t("dgSummary", b.wins | 0, (comic && comic.steps) | 0, COMIC_MAX_STEPS)), ok: t("dgRestore"), onOk: () => campRestore(b) }));
+      box.appendChild(bt);
+    });
+  }
+  // ---- Charger : choix d'un fichier de sauvegarde
+  function loadOpen() {
+    sfx("windowOpen"); $d("dataRemind").hidden = true;
+    $d("loadTitle").textContent = t("dataLoad"); $d("loadHint").textContent = t("dataLoadHint"); $d("loadPick").textContent = t("dataChoose"); $d("loadClose").textContent = t("campClose"); dataSay("loadMsg"); loadBackupsRender();
+    $d("loadOverlay").hidden = false; queueFitSkinButtons();
+  }
+  $d("loadPick").addEventListener("click", () => $d("loadFile").click());
+  $d("loadFile").addEventListener("change", async (e) => {
+    const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+    let txt = ""; try { txt = await f.text(); } catch (err) { /* ignoré */ }
+    const r = await dataDecode(txt); if (r.err) { dataSay("loadMsg", r.err); return; }
+    dangerConfirm({ text: t("dgImportAsk", dataSumCur(), dataSumOf(r.vals[0], r.vals[1])) + "  [build " + r.build + "]", ok: t("dataLoad"), onOk: () => dataApply(r) });
+  });
+  /** "file" : page ouverte depuis un fichier / une app de visualisation (stockage souvent effacé) ; "web" : site non installé (Safari efface après 7 jours) ; null : OK. */
+  function storageRisk() {
+    if (location.protocol === "file:") return "file";
+    const standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+    return standalone ? null : (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && "ontouchend" in document ? "web" : null);
+  }
+  // ---- Sauvegarder : télécharger, partager ou copier
+  let saveCode = "";
+  const saveFile = () => { const d = new Date(), p2 = (n) => String(n).padStart(2, "0"); return new File([saveCode], "link9-save-" + d.getFullYear() + p2(d.getMonth() + 1) + p2(d.getDate()) + ".txt", { type: "text/plain" }); };
+  async function saveOpen() {
+    sfx("windowOpen"); $d("dataRemind").hidden = true; saveCode = await dataExport();
+    $d("saveTitle").textContent = t("dataSave"); $d("saveHint").textContent = t("dataSaveHint") + " (" + dataSumCur() + ")"; $d("saveClose").textContent = t("campClose");
+    $d("saveDl").textContent = t("dataDl"); $d("saveShare").textContent = t("dataShare"); $d("saveCopy").textContent = t("dataCopy"); dataSay("saveMsg");
+    $d("saveBox").value = saveCode;
+    const risk = storageRisk(); $d("saveRisk").hidden = !risk; if (risk) $d("saveRisk").textContent = "⚠ " + t(risk === "file" ? "dgRiskFile" : "dgRiskWeb");
+    let can = false; try { can = !!(navigator.canShare && navigator.canShare({ files: [saveFile()] })); } catch (e) { /* ignoré */ }
+    $d("saveShare").hidden = !can; $d("saveOverlay").hidden = false; queueFitSkinButtons();
+  }
+  $d("saveDl").addEventListener("click", () => {
+    const f = saveFile(), a = document.createElement("a"); a.href = URL.createObjectURL(f); a.download = f.name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); playReset(); dataSay("saveMsg", "dataSaved");
+  });
+  // uniquement le fichier : title/text/url ajoutent un 2e élément (métadonnées) dans la feuille de partage iOS
+  $d("saveShare").addEventListener("click", async () => { try { await navigator.share({ files: [saveFile()] }); playReset(); } catch (e) { /* annulé */ } });
+  $d("saveCopy").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(saveCode); } catch (e) { $d("saveBox").select(); document.execCommand && document.execCommand("copy"); }
+    playReset(); dataSay("saveMsg", "dataCopied");
+  });
+  [["homeLoad", loadOpen], ["campLoad", loadOpen], ["homeSave", saveOpen], ["campSave", saveOpen]].forEach(([id, fn]) => $d(id).addEventListener("click", fn));
+  function dataRefreshBtns() { ["home", "camp"].forEach((p) => { $d(p + "Load").textContent = t("dataLoad"); $d(p + "Save").textContent = t("dataSave"); }); }
+  const PLAY_KEY = "ccn_playtime_v1", PLAY_LIMIT = 3600000, PLAY_STEP = 10000;
+  let played = 0; try { played = Math.max(0, parseInt(localStorage.getItem(PLAY_KEY) || "0", 10) || 0); } catch (e) { /* ignoré */ }
+  function playSave() { try { localStorage.setItem(PLAY_KEY, String(played)); } catch (e) { /* ignoré */ } }
+  function playReset() { played = 0; playSave(); }
+  function remindShow() {
+    document.getElementById("remTitle").textContent = t("dataTitle"); document.getElementById("remText").textContent = t("dataRemind");
+    document.getElementById("remNow").textContent = t("dataNow"); document.getElementById("remLater").textContent = t("dataLater");
+    sfx("windowOpen"); document.getElementById("dataRemind").hidden = false; queueFitSkinButtons();
+  }
+  document.getElementById("remLater").addEventListener("click", () => { document.getElementById("dataRemind").hidden = true; playReset(); });
+  document.getElementById("remNow").addEventListener("click", () => { document.getElementById("dataRemind").hidden = true; saveOpen(); });
+  if (!SCENE) setInterval(() => {
+    if (document.visibilityState !== "visible") return;
+    played += PLAY_STEP; playSave();
+    if (played < PLAY_LIMIT) return;
+    const el = (id) => document.getElementById(id), onMenu = !el("homeScreen").hidden || !el("campScreen").hidden;
+    if (!onMenu || !el("dataRemind").hidden || !el("loadOverlay").hidden || !el("saveOverlay").hidden || !el("sndOverlay").hidden) return;   // jamais en plein combat ni par-dessus un autre panneau
+    let hasData = false; try { hasData = !!localStorage.getItem("ccn_campaign_v1") || !!localStorage.getItem("ccn_comic_v1"); } catch (e) { /* ignoré */ }
+    if (hasData) remindShow(); else playReset();
+  }, PLAY_STEP);
   function sndOpen() { sfx("windowOpen"); sndRefreshPanel(); document.getElementById("sndOverlay").hidden = false; }
   function sndClose() { document.getElementById("sndOverlay").hidden = true; }
   document.querySelectorAll(".snd-btn").forEach((bt) => bt.addEventListener("click", sndOpen));
@@ -10135,6 +10422,13 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
   dbgEl("brandHit").addEventListener("click", () => { if (debugMode) dbgSetMode(false); });
   onDouble(dbgEl("brandHit"), () => { if (!debugMode) dbgSetArmed(true); });
   onDouble(dbgEl("dbgSecret"), () => { if (Date.now() < dbg.armedUntil) dbgSetMode(true); });
+  // Partout dans le jeu : logo de l'accueil, logo de la campagne (même geste) ; l'icône 🐞 en haut à gauche signale le mode et le coupe d'un clic.
+  [".home-logo-wrap", ".camp-logo-wrap"].forEach((sel) => {
+    const el = document.querySelector(sel); if (!el) return;
+    el.addEventListener("click", () => { if (debugMode) dbgSetMode(false); });
+    onDouble(el, () => { if (!debugMode) dbgSetArmed(true); });
+  });
+  dbgEl("dbgIcon").hidden = false; dbgEl("dbgIcon").addEventListener("click", () => { if (debugMode) dbgSetMode(false); });
 
   /* ---- micro-boutons ---- */
   function dbgForceEnd(winner) {
@@ -11019,6 +11313,33 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
   });
 
   /* ======================= INIT ======================= */
+  /** Fenêtre de confirmation « danger » (⚠, bouton de validation rouge, annuler par défaut). Toute opération qui remplace ou supprime la campagne passe par ici. */
+  function dangerConfirm({ text, ok, onOk, onCancel, safe }) {
+    const ov = document.getElementById("dgOverlay"), bo = document.getElementById("dgOk"), bc = document.getElementById("dgCancel");
+    sfx("windowOpen");
+    document.getElementById("dgText").textContent = text; bo.textContent = ok; bc.textContent = t("pwaCancel");
+    ov.classList.toggle("dg-safe", !!safe); document.getElementById("dgSign").textContent = safe ? "💾" : "⚠";
+    ov.hidden = false; queueFitSkinButtons();
+    bc.onclick = () => { ov.hidden = true; if (onCancel) onCancel(); };
+    bo.onclick = () => { ov.hidden = true; onOk(); };
+    try { bc.focus(); } catch (e) { /* ignoré */ }
+  }
+  /* ---- Copies de sécurité de la campagne : avant toute opération destructrice (reset, import, restauration, campagne illisible, régression de victoires) ---- */
+  const CAMP_BK_KEY = "ccn_campaign_backups_v1";
+  function campBackups() { try { const a = JSON.parse(localStorage.getItem(CAMP_BK_KEY) || "[]"); return Array.isArray(a) ? a.filter((x) => x && typeof x.raw === "string") : []; } catch (e) { return []; } }
+  function campBackup(raw, why) {
+    if (!raw) return;
+    let info = null; try { info = JSON.parse(raw); } catch (e) { /* illisible : on garde quand même */ }
+    const wins = info && typeof info.wins === "number" ? info.wins : 0;
+    const tok = info && info.tokens ? Object.values(info.tokens).reduce((a, b) => a + (+b || 0), 0) : 0;
+    if (info && wins === 0 && tok === 0) return;                      // campagne vierge : rien à protéger
+    const list = campBackups(); if (list.some((x) => x.raw === raw)) return;
+    list.unshift({ t: Date.now(), wins, why: why || "", raw });
+    const keep = list.slice(0, 3), best = list.reduce((a, b) => (!a || b.wins > a.wins ? b : a), null);   // les 3 plus récentes + la plus avancée
+    if (best && !keep.includes(best)) keep.push(best);
+    try { localStorage.setItem(CAMP_BK_KEY, JSON.stringify(keep)); } catch (e) { /* quota */ }
+  }
+  function campRestore(b) { try { campBackup(localStorage.getItem("ccn_campaign_v1"), "restore"); localStorage.setItem("ccn_campaign_v1", b.raw); } catch (e) { /* ignoré */ } location.reload(); }
   function showConfirmModal(message, onConfirm) {
     const overlay = document.getElementById("overlay");
     const modal = document.getElementById("modalContent");
@@ -11041,6 +11362,7 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
   function applyStaticI18n() {
     const hb = document.getElementById("homeBuild");
     if (hb) hb.textContent = t("buildLabel", BUILD_NUMBER);
+    dataRefreshBtns();
     const map = {
       appTitle: "appTitle", appSubtitle: "Grid Protocol",
       logBtn: "logBtn", endLogBtn: "logBtn", logTitle: "logTitle", logClose: "logClose",
@@ -11201,7 +11523,7 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
     48:"left", 51:"out", 56:"left", 58:"right", 59:"left", 61:"out", 63:"out" };
   let comic = { steps: 0, seen: 0 };
   try { const raw = JSON.parse(localStorage.getItem(COMIC_KEY) || "null"); if (raw) comic = { steps: Math.max(0, Math.min(COMIC_MAX_STEPS, raw.steps | 0)), seen: raw.seen | 0 }; } catch (e) { /* ignoré */ }
-  function comicSave() { try { localStorage.setItem(COMIC_KEY, JSON.stringify(comic)); } catch (e) { /* ignoré */ } }
+  function comicSave() { try { localStorage.setItem(COMIC_KEY, JSON.stringify(comic)); } catch (e) { /* ignoré */ } idbMirrorSoon(); }
   const comicFull = () => COMIC_FREE + Math.floor(comic.steps / COMIC_STEPS);          // pages entièrement débloquées
   const comicHalf = () => comic.steps < COMIC_MAX_STEPS && comic.steps % COMIC_STEPS === 1;   // une demi-page en cours
   const comicVisible = () => comicFull() + (comicHalf() ? 1 : 0);
@@ -12017,7 +12339,34 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
     const deckIds = picked.map((c) => c.id);
     return { collection: campCountIds(deckIds), deckIds, tokens: { common: 0, uncommon: 0, rare: 0, unique: 0 }, wins: 0, reward: null };
   }
-  function campSave() { try { localStorage.setItem(CAMP_KEY, JSON.stringify(campaign)); } catch (e) { /* stockage indisponible */ } }
+  let campPending = false, campConflictShown = false;   // campPending : la campagne stockée est illisible => on n'écrit RIEN tant que le joueur n'a pas accepté (fenêtre danger)
+  function campConflict() {
+    if (campConflictShown) return; campConflictShown = true;
+    dangerConfirm({ text: t("dgConflict"), ok: t("dgReload"), onOk: () => location.reload(), onCancel: () => { campConflictShown = false; } });
+  }
+  function campSave() {
+    if (campPending) return;
+    try {
+      const raw = localStorage.getItem(CAMP_KEY);
+      if (raw) {
+        let st = null; try { st = JSON.parse(raw); } catch (e) { /* ignoré */ }
+        if (st && typeof st.rev === "number" && st.rev > (campaign.rev || 0)) { campConflict(); return; }   // modifiée ailleurs entre-temps : on n'écrase pas
+        if (st && typeof st.wins === "number" && st.wins > (campaign.wins || 0)) campBackup(raw, "regress");   // régression de victoires : copie avant d'écraser
+      }
+      campaign.rev = (campaign.rev || 0) + 1;
+      localStorage.setItem(CAMP_KEY, JSON.stringify(campaign));
+    } catch (e) { /* stockage indisponible */ }
+    idbMirrorSoon();
+  }
+  /** Répare une campagne dont certains ids ont disparu / dont le deck est incomplet. Renvoie l'objet réparé ou null. */
+  function campRepair(c) {
+    if (!c || typeof c !== "object" || !c.collection || typeof c.collection !== "object" || !Array.isArray(c.deckIds)) return null;
+    const f = JSON.parse(JSON.stringify(c)); f.tokens = f.tokens && typeof f.tokens === "object" ? f.tokens : {};
+    Object.keys(f.collection).forEach((id) => { if (!CARDS_BY_ID[id] || !(f.collection[id] > 0)) delete f.collection[id]; });
+    const used = {}; f.deckIds = f.deckIds.filter((id) => { if (!f.collection[id] || (used[id] || 0) >= f.collection[id]) return false; used[id] = (used[id] || 0) + 1; return true; }).slice(0, CAMP_DECK_SIZE);
+    for (const id of Object.keys(f.collection)) while (f.deckIds.length < CAMP_DECK_SIZE && (used[id] || 0) < f.collection[id]) { f.deckIds.push(id); used[id] = (used[id] || 0) + 1; }
+    return campValid(f) ? f : null;
+  }
   function campValid(c) {
     if (!c || typeof c !== "object" || !c.collection || !Array.isArray(c.deckIds) || !c.tokens) return false;
     if (c.deckIds.length !== CAMP_DECK_SIZE) return false;
@@ -12026,7 +12375,16 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
   }
   function campEnsure() {
     if (campaign) return campaign;
-    try { const raw = localStorage.getItem(CAMP_KEY); const c = raw ? JSON.parse(raw) : null; craftRegisterAll(c); if (campValid(c)) campaign = c; } catch (e) { /* ignoré */ }
+    let raw = null; try { raw = localStorage.getItem(CAMP_KEY); } catch (e) { /* ignoré */ }
+    if (raw) {
+      let c = null; try { c = JSON.parse(raw); craftRegisterAll(c); } catch (e) { /* ignoré */ }
+      if (campValid(c)) campaign = c;
+      else {
+        const fixed = campRepair(c);
+        if (fixed) { campBackup(raw, "repaired"); campaign = fixed; campSave(); }
+        else { campBackup(raw, "unreadable"); campPending = true; }     // jamais d'écrasement silencieux : le joueur doit accepter (showCampaign)
+      }
+    }
     if (!campaign) { campaign = campNew(); campSave(); }
     for (const r of CAMP_RARITIES) if (typeof campaign.tokens[r] !== "number") campaign.tokens[r] = 0;
     if (typeof campaign.wins !== "number") campaign.wins = 0;
@@ -12245,8 +12603,8 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
     const pv = craftPreview(id, kind);
     if (!pv.ok || (campaign.collection[id] || 0) < 1) return false;
     const price = pay === "alt" && pv.alt ? pv.alt : { rarity: pv.rarity, cost: pv.cost };
-    if (campaign.tokens[price.rarity] < price.cost) return false;
-    campaign.tokens[price.rarity] -= price.cost;
+    if (campaign.tokens[price.rarity] < campPrice(price.cost)) return false;
+    campaign.tokens[price.rarity] -= campPrice(price.cost);
     campaign.collection[id]--; if (campaign.collection[id] <= 0) delete campaign.collection[id];
     campaign.collection[pv.newId] = (campaign.collection[pv.newId] || 0) + 1;
     const di = campaign.deckIds.indexOf(id);
@@ -12353,6 +12711,7 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
     campEnsure();
     renderCamp();
     campEl("campScreen").hidden = false;
+    if (campPending) dangerConfirm({ text: t("dgUnreadable"), ok: t("dgNew"), onOk: () => { campPending = false; campSave(); renderCamp(); }, onCancel: () => { campaign = null; hideCampaign(); showHome(); } });
     document.body.classList.add("camp-open");
     queueFitSkinButtons();
     if (campaign.reward) openReward();   // récompense en attente (victoire, ou rechargement de la page) : à choisir d'abord
@@ -12379,12 +12738,12 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
   campEl("campWorkshop").addEventListener("click", openWorkshop);
   campEl("campHome").addEventListener("click", () => { hideCampaign(); showHome(); });
   campEl("campReset").addEventListener("click", () => {
-    showConfirmModal(esc(t("campResetConfirm")), () => {
-      try { localStorage.removeItem(CAMP_KEY); localStorage.removeItem(CAMP_GAME_KEY); localStorage.removeItem(CAMP_LOG_STORAGE_KEY); } catch (e) { /* ignoré */ }
+    dangerConfirm({ text: t("campResetConfirm") + " " + t("dgKept"), ok: t("dgDelete"), onOk: () => {
+      try { campBackup(localStorage.getItem(CAMP_KEY), "reset"); localStorage.removeItem(CAMP_KEY); localStorage.removeItem(CAMP_GAME_KEY); localStorage.removeItem(CAMP_LOG_STORAGE_KEY); } catch (e) { /* ignoré */ }
       campaign = null;
       campEnsure();
       renderCamp();
-    });
+    } });
   });
 
   // --- Récompense de fin de combat ---
@@ -12502,13 +12861,14 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
     campEl("merchClose").textContent = t("campClose");
     const row = (give, cost, buy, ok) => `<div class="merch-row"><div class="merch-give">${give}</div><div class="merch-cost">${cost}</div><button class="newgame-btn" data-buy="${buy}"${ok ? "" : " disabled"}>${esc(t("merchBuy"))}</button></div>`;
     const block = (titleKey, list) => `<section class="merch-block"><h3 class="merch-block-title">${esc(t(titleKey))}</h3>${list.join("")}</section>`;
-    const swaps = CAMP_EXCHANGES.map((x) => row(`${tokenIconHtml(x.to, true)}<span>${esc(t("merchToken", campRarityLabel(x.to)))}</span>`, `${x.cost} ${tokenIconHtml(x.from, true)}`, `swap:${x.from}`, campaign.tokens[x.from] >= x.cost));
-    const randoms = CAMP_RARITIES.map((r) => row(`${tokenIconHtml(r, true)}<span>${esc(t("merchRandomCard", campRarityLabel(r)))}</span>`, `${CAMP_CARD_PRICE} ${tokenIconHtml(r, true)}`, `card:${r}`, campaign.tokens[r] >= CAMP_CARD_PRICE));
-    const picks = CAMP_RARITIES.map((r) => row(`${tokenIconHtml(r, true)}<span>${esc(t("merchPickCard", campRarityLabel(r)))}</span>`, `${CAMP_PICK_PRICE} ${tokenIconHtml(r, true)}`, `pick:${r}`, campaign.tokens[r] >= CAMP_PICK_PRICE));
+    const swaps = CAMP_EXCHANGES.map((x) => row(`${tokenIconHtml(x.to, true)}<span>${esc(t("merchToken", campRarityLabel(x.to)))}</span>`, `${campPrice(x.cost)} ${tokenIconHtml(x.from, true)}`, `swap:${x.from}`, campaign.tokens[x.from] >= campPrice(x.cost)));
+    const randoms = CAMP_RARITIES.map((r) => row(`${tokenIconHtml(r, true)}<span>${esc(t("merchRandomCard", campRarityLabel(r)))}</span>`, `${campPrice(CAMP_CARD_PRICE)} ${tokenIconHtml(r, true)}`, `card:${r}`, campaign.tokens[r] >= campPrice(CAMP_CARD_PRICE)));
+    const picks = CAMP_RARITIES.map((r) => row(`${tokenIconHtml(r, true)}<span>${esc(t("merchPickCard", campRarityLabel(r)))}</span>`, `${campPrice(CAMP_PICK_PRICE)} ${tokenIconHtml(r, true)}`, `pick:${r}`, campaign.tokens[r] >= campPrice(CAMP_PICK_PRICE)));
     const rows = [block("merchBlockShards", swaps), block("merchBlockRandom", randoms), block("merchBlockPick", picks)];
     campEl("merchList").innerHTML = rows.join("");
     queueFitSkinButtons();
   }
+  const campPrice = (n) => (debugMode ? 0 : n);   // mode debug : tout est gratuit (marchand et atelier)
   function openMerchant() { sfx("windowOpen"); campEnsure(); renderMerchant(); campEl("merchOverlay").hidden = false; }
   const openMerchantNow = openMerchant;
   campEl("merchClose").addEventListener("click", () => { campEl("merchOverlay").hidden = true; renderCamp(); });
@@ -12517,22 +12877,22 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
     const b = e.target.closest("button[data-buy]"); if (!b || b.disabled) return;
     const [kind, r] = b.dataset.buy.split(":");
     if (kind === "card") {
-      if (campaign.tokens[r] < CAMP_CARD_PRICE) return;
-      campaign.tokens[r] -= CAMP_CARD_PRICE;
+      if (campaign.tokens[r] < campPrice(CAMP_CARD_PRICE)) return;
+      campaign.tokens[r] -= campPrice(CAMP_CARD_PRICE);
       const id = campRollCardOfRarity(r);
       const kind = campAddCard(id);
       campSave(); renderMerchant();
       showMerchantReveal(id, kind);
     } else if (kind === "pick") {
-      if (campaign.tokens[r] < CAMP_PICK_PRICE || campaign.merchPick) return;
-      campaign.tokens[r] -= CAMP_PICK_PRICE;
+      if (campaign.tokens[r] < campPrice(CAMP_PICK_PRICE) || campaign.merchPick) return;
+      campaign.tokens[r] -= campPrice(CAMP_PICK_PRICE);
       campaign.merchPick = { r, offers: campPickOffers(r) };   // payé d'avance et persisté : fermer / recharger ne permet pas de retirer
       campSave(); renderMerchant();
       openPick();
     } else {
       const x = CAMP_EXCHANGES.find((y) => y.from === r);
-      if (!x || campaign.tokens[x.from] < x.cost) return;
-      campaign.tokens[x.from] -= x.cost; campaign.tokens[x.to]++;
+      if (!x || campaign.tokens[x.from] < campPrice(x.cost)) return;
+      campaign.tokens[x.from] -= campPrice(x.cost); campaign.tokens[x.to]++;
       campSave(); renderMerchant();
     }
   });
@@ -12631,7 +12991,7 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
         if (!pv.ok) continue;
         any = true;
         const label = fltIco(k, "big");
-        const chip = (pay, rar, cost) => `<button class="newgame-btn ws-btn" data-act="up" data-kind="${k}" data-pay="${pay}"${campaign.tokens[rar] >= cost ? "" : " disabled"}>${cost} ${tokenIconHtml(rar, true)}</button>`;
+        const chip = (pay, rar, cost) => `<button class="newgame-btn ws-btn" data-act="up" data-kind="${k}" data-pay="${pay}"${campaign.tokens[rar] >= campPrice(cost) ? "" : " disabled"}>${campPrice(cost)} ${tokenIconHtml(rar, true)}</button>`;
         html += `<span class="ws-up"><span class="ws-up-l">${esc(t("wsAdd"))} ${label}</span>${chip("native", pv.rarity, pv.cost)}${pv.alt ? `<span class="ws-or">${esc(t("wsOr"))}</span>${chip("alt", pv.alt.rarity, pv.alt.cost)}` : ""}</span>`;
       }
       if (!any) html += `<span class="ws-none">${esc(t("wsMaxed"))}</span>`;
@@ -12787,7 +13147,161 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
   applyStaticI18n();
   showHome();
   loadAssets(uiAssets(), () => { if (SCENE) runScene(SCENE.name); }, { boot: true });
-  if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));   // hors ligne (PWA) : voir sw.js   // voile noir dès le HTML ; logo + barre seulement si le chargement dépasse 0,5 s
+  /* ======================= AJUSTEMENT À L'ÉCRAN =======================
+     Accueil, campagne, marchand, récompense, choix, panneaux de dialogue : le contenu est ramené à la taille de la fenêtre (réduction homothétique,
+     jamais d'ascenseur), recalculé à chaque redimensionnement / bascule portrait-paysage / changement de contenu. Les mises en page responsive (CSS)
+     font déjà tenir presque tout à l'échelle 1 ; ceci est le filet de sécurité. */
+  const FIT_PANELS = ["merchOverlay", "rewardOverlay", "pickOverlay", "sndOverlay", "loadOverlay", "saveOverlay", "pwaOverlay", "dgOverlay", "dataRemind"];
+  /** Réduit la police de TOUT bouton dont le texte dépasse (mots longs selon la langue, polices plus larges selon l'appareil) ; se recalcule à chaque changement. */
+  const fitShrunk = new Set();
+  function fitBtnTexts() {
+    fitShrunk.forEach((b) => b.style.removeProperty("font-size")); fitShrunk.clear();
+    const over = [];
+    document.querySelectorAll("button, .choice-btn, .ws-tab").forEach((b) => {
+      if (!b.offsetWidth || b.classList.contains("dbg-chip") || !/\S/.test(b.textContent)) return;
+      if (b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 2) over.push(b);
+    });
+    over.forEach((b) => {
+      let fs = parseFloat(getComputedStyle(b).fontSize);
+      for (let i = 0; i < 16 && fs > 8 && (b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 2); i++) { fs *= 0.92; b.style.setProperty("font-size", fs + "px", "important"); }
+      fitShrunk.add(b);
+    });
+  }
+  let btnFitT = 0;
+  function btnFitSoon() { clearTimeout(btnFitT); btnFitT = setTimeout(() => { try { fitBtnTexts(); } catch (e) { /* ignoré */ } }, 120); }
+  function fitTo(el, aw, ah) {
+    el.style.transform = ""; el.style.width = ""; el.style.maxWidth = ""; el.style.flex = "";
+    const w0 = el.offsetWidth, h0 = el.offsetHeight; if (!w0 || !h0) return;
+    let z = Math.min(1, ah / h0, aw / w0); if (z > 0.995) return;
+    el.style.flex = "none"; el.style.maxWidth = "none";
+    for (let i = 0; i < 5; i++) {
+      el.style.width = (aw / z) + "px";                       // on rend à la mise en page la largeur de l'écran entière (avant réduction)
+      const nz = Math.min(1, ah / el.offsetHeight);
+      if (Math.abs(nz - z) < 0.004) { z = Math.min(z, nz); break; }
+      z = nz;
+    }
+    el.style.width = (aw / z) + "px"; z = Math.min(z, ah / el.offsetHeight);
+    el.style.transformOrigin = "center center"; el.style.transform = `scale(${z})`;
+  }
+  let fitQueuedAll = false;
+  function fitAll() {
+    fitQueuedAll = false;
+    try {
+      const W = innerWidth, H = innerHeight, vis = (e) => e && !e.hidden && e.offsetParent !== null || (e && getComputedStyle(e).position === "fixed" && !e.hidden);
+      const home = $d("homeScreen"), camp = $d("campScreen");
+      fitBtnTexts();
+      if (vis(home)) fitTo(home.querySelector(".home-inner"), W - 48, H - 48);
+      if (vis(camp)) fitTo(camp.querySelector(".camp-inner"), W - 48, H - 48);
+      FIT_PANELS.forEach((id) => { const ov = $d(id); if (!ov) return; const pn = ov.querySelector(".log-panel"); if (pn) pn.classList.add("fit-panel"); if (!ov.hidden) fitTo(pn, W - 28, H - 28); });
+    } catch (e) { /* le jeu reste utilisable sans l'ajustement */ }
+  }
+  function fitSoon() { btnFitSoon(); if (fitQueuedAll) return; fitQueuedAll = true; requestAnimationFrame(fitAll); }
+  window.addEventListener("resize", fitSoon); window.addEventListener("orientationchange", () => { setTimeout(fitSoon, 150); fitSoon(); });
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", fitSoon);
+  document.addEventListener("load", (e) => { if (e.target && e.target.tagName === "IMG") fitSoon(); }, true);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSoon);
+  { const mo = new MutationObserver(fitSoon), opts = { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ["hidden"] };
+    ["homeScreen", "campScreen"].concat(FIT_PANELS).forEach((id) => { const e = $d(id); if (e) mo.observe(e, opts); }); }
+  new MutationObserver(btnFitSoon).observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ["hidden"] });
+  if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", fitSoon);
+  fitSoon();
+
+  /* ======================= MODE HORS-LIGNE (PWA) =======================
+     assets.json (généré à la publication) liste chaque fichier avec son hash. Le jeu compare avec ce qui est installé (entrée « __installed » du cache
+     « link9-app »), propose le téléchargement complet puis les mises à jour (confirmation), télécharge dans un cache d'attente « link9-stage »
+     (reprise possible), puis bascule. sw.js sert tout depuis le cache dès que le paquet est installé. */
+  const PWA = { on: !SCENE && "serviceWorker" in navigator && /^https?:$/.test(location.protocol) && !!window.caches, APP: "link9-app", STAGE: "link9-stage", remote: null, local: null, busy: false, cancel: false };
+  const pwaAbs = (p) => new URL(p, document.baseURI).href, pwaMeta = () => pwaAbs("__installed");
+  const pwaSize = (n) => (n >= 1048576 ? Math.round(n / 1048576) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB");
+  async function pwaLocal() { try { const r = await (await caches.open(PWA.APP)).match(pwaMeta()); return r ? await r.json() : null; } catch (e) { return null; } }
+  async function pwaRemote() { const r = await fetch(pwaAbs("assets.json") + "?_=" + Date.now(), { cache: "no-store" }); if (!r.ok) throw new Error("manifest"); const j = await r.json(); if (!j || !j.files) throw new Error("manifest"); return j; }
+  function pwaDiff(remote, local) {
+    const need = Object.keys(remote.files).filter((f) => !local || !local.files || local.files[f] !== remote.files[f][0]);
+    return { need, bytes: need.reduce((a, f) => a + remote.files[f][1], 0) };
+  }
+  function pwaShow(text, ok, no, bar) {
+    $d("pwaTitle").textContent = t("pwaTitle"); $d("pwaText").textContent = text;
+    const b1 = $d("pwaOk"), b2 = $d("pwaNo"); b1.hidden = !ok; b2.hidden = !no; if (ok) b1.textContent = ok; if (no) b2.textContent = no;
+    $d("pwaBar").hidden = !bar; if (bar) $d("pwaFill").style.width = "0"; $d("pwaOverlay").hidden = false; queueFitSkinButtons();
+  }
+  const pwaHide = () => { $d("pwaOverlay").hidden = true; };
+  async function pwaAsk(kind) {   // kind : "install" | "update"
+    const { remote, local } = PWA, d = pwaDiff(remote, kind === "update" ? local : null); PWA.plan = d; PWA.kind = kind;
+    sfx("windowOpen");
+    pwaShow(kind === "update" ? t("pwaUpdateAsk", remote.build, pwaSize(d.bytes)) : t("pwaInstallAsk", pwaSize(d.bytes)), t(kind === "update" ? "pwaUpdate" : "pwaDownload"), t("pwaLater"));
+  }
+  async function pwaRun() {
+    if (PWA.busy) return; PWA.busy = true; PWA.cancel = false;
+    const { remote, plan } = PWA, total = Math.max(1, plan.bytes); let done = 0;
+    pwaShow(t("pwaProgress", 0), null, t("pwaCancel"), true);
+    const prog = () => { const pc = Math.min(100, Math.round(done / total * 100)); $d("pwaFill").style.width = pc + "%"; $d("pwaText").textContent = t("pwaProgress", pc); };
+    try {
+      let stage = await caches.open(PWA.STAGE);
+      const mk = pwaAbs("__stage"), sm = await stage.match(mk);
+      if (!sm || (await sm.json()).version !== remote.version) { await caches.delete(PWA.STAGE); stage = await caches.open(PWA.STAGE); await stage.put(mk, new Response(JSON.stringify({ version: remote.version }))); }
+      const queue = plan.need.slice();
+      const worker = async () => {
+        while (queue.length && !PWA.cancel) {
+          const f = queue.shift(), url = pwaAbs(f), sz = remote.files[f][1];
+          if (await stage.match(url)) { done += sz; prog(); continue; }   // déjà reçu lors d'une tentative précédente
+          let ok = false;
+          for (let a = 0; a < 3 && !ok && !PWA.cancel; a++) { try { const r = await fetch(url + "?__dl=" + remote.files[f][0], { cache: "reload" }); if (r.ok) { await stage.put(url, r); ok = true; } } catch (e) { /* nouvel essai */ } }
+          if (!ok) throw new Error(PWA.cancel ? "cancel" : "dl");
+          done += sz; prog();
+        }
+      };
+      await Promise.all([worker(), worker(), worker(), worker()]);
+      if (PWA.cancel) throw new Error("cancel");
+      const main = await caches.open(PWA.APP);
+      for (const f of plan.need) { const r = await stage.match(pwaAbs(f)); if (r) await main.put(pwaAbs(f), r); }
+      for (const k of await main.keys()) { const rel = decodeURIComponent(k.url.slice(pwaAbs("./").length)); if (rel !== "__installed" && !remote.files[rel]) await main.delete(k); }
+      const files = {}; Object.keys(remote.files).forEach((f) => { files[f] = remote.files[f][0]; });
+      await main.put(pwaMeta(), new Response(JSON.stringify({ version: remote.version, build: remote.build, files })));
+      await caches.delete(PWA.STAGE);
+      try { localStorage.removeItem("ccn_pwa_snooze_v1"); } catch (e) { /* ignoré */ }
+      location.reload();
+    } catch (e) {
+      PWA.busy = false;
+      if (e && e.message === "cancel") pwaHide(); else pwaShow(t("pwaFail"), t("pwaDownload"), t("pwaLater"));
+    }
+    PWA.busy = false;
+  }
+  $d("pwaOk").addEventListener("click", pwaRun);
+  $d("pwaNo").addEventListener("click", () => {
+    if (PWA.busy) { PWA.cancel = true; return; }
+    if (PWA.kind === "install") { try { localStorage.setItem("ccn_pwa_snooze_v1", String(Date.now())); } catch (e) { /* ignoré */ } }
+    pwaHide();
+  });
+  function pwaRefreshRow() {
+    $d("pwaRow").hidden = !PWA.on;
+    if (!PWA.on) return;
+    $d("pwaBtn").textContent = t(PWA.local ? "pwaCheckBtn" : "pwaDlBtn");
+    $d("pwaStatus").textContent = PWA.local ? t("pwaVersion", PWA.local.build) : "";
+  }
+  $d("pwaBtn").addEventListener("click", async () => {
+    try { PWA.remote = await pwaRemote(); PWA.local = await pwaLocal(); } catch (e) { $d("pwaStatus").textContent = t("pwaNoPkg"); return; }
+    $d("sndOverlay").hidden = true;
+    if (!PWA.local) pwaAsk("install");
+    else if (PWA.local.version !== PWA.remote.version) pwaAsk("update");
+    else { $d("sndOverlay").hidden = false; $d("pwaStatus").textContent = t("pwaUpToDate"); }
+  });
+  function riskWarn() {
+    if (SCENE || storageRisk() !== "file") return;
+    let done = false; try { done = sessionStorage.getItem("ccn_risk_shown") === "1"; sessionStorage.setItem("ccn_risk_shown", "1"); } catch (e) { /* ignoré */ }
+    if (!done) dangerConfirm({ text: t("dgRiskFile"), ok: t("dgSaveNow"), onOk: saveOpen });
+  }
+  window.addEventListener("load", () => setTimeout(riskWarn, 1500));
+  async function pwaInit() {
+    if (!PWA.on) return;
+    try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) { /* ignoré */ }
+    PWA.local = await pwaLocal(); pwaRefreshRow();
+    if (!navigator.onLine) return;                                     // hors ligne : on joue avec la version installée
+    try { PWA.remote = await pwaRemote(); } catch (e) { return; }      // pas d'assets.json (hébergement sans paquet) ou réseau indisponible
+    if ($d("homeScreen").hidden && $d("campScreen").hidden) return;    // jamais en plein combat
+    if (!PWA.local) { let sn = 0; try { sn = parseInt(localStorage.getItem("ccn_pwa_snooze_v1") || "0", 10) || 0; } catch (e) { /* ignoré */ } if (Date.now() - sn > 3 * 864e5) pwaAsk("install"); }
+    else if (PWA.local.version !== PWA.remote.version) pwaAsk("update");
+  }
+  if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").then(() => navigator.serviceWorker.ready).then(() => pwaInit()).catch(() => {}));   // hors ligne (PWA) : voir sw.js   // voile noir dès le HTML ; logo + barre seulement si le chargement dépasse 0,5 s
 })();
 </script>
 </body>
