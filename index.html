@@ -2723,7 +2723,7 @@ STRINGS.fr = {
       { id: "campaign", title: "Mode campagne", paras: [
         `Construisez votre propre deck, combat après combat. Vous commencez avec un deck de ${p.deck} programmes, et votre collection ne contient que les programmes que vous possédez. Votre deck compte toujours exactement ${p.deck} programmes.`,
         `Chaque combat oppose un nouvel adversaire aléatoire, dont le deck est construit à partir du vôtre, en un peu plus faible. Perdre ne coûte rien : vous recommencez simplement le combat.`,
-        `Vous pouvez posséder au plus ${p.copies} exemplaires d'un programme, jusqu'à Rare, et un seul exemplaire d'une Ultra-rare. Tout exemplaire en trop est converti en shard.`,
+        `Vous pouvez posséder au plus ${p.copies} exemplaires d'un programme, jusqu'à Rare, et un seul exemplaire d'un Ultra-rare. Tout exemplaire en trop est converti en shard.`,
       ] },
       { id: "rewards", title: "Récompenses", paras: [
         `Après chaque victoire, trois programmes différents sont proposés. Choisissez-en un pour votre collection : les deux autres sont convertis en un shard chacun, de leur propre rareté.`,
@@ -2732,7 +2732,7 @@ STRINGS.fr = {
       { id: "tokens", title: "Shards", paras: [
         `Il existe un type de shard par rareté. Ils sont affichés en haut de l'écran de campagne et se dépensent chez le marchand.`,
         `Perdre un combat (sans abandonner) rapporte quand même une récompense de ténacité : un shard dont la rareté est tirée aux mêmes taux que les programmes de récompense.`,
-        `Raretés garanties : après ${p.pity.unique} récompenses sans Ultra-rare, ${p.pity.rare} sans Rare ou ${p.pity.uncommon} sans Peu commune, la suivante contient forcément cette rareté. Les mêmes compteurs, tenus séparément, s'appliquent aux shards de ténacité.`,
+        `Raretés garanties : après ${p.pity.unique} récompenses sans Ultra-rare, ${p.pity.rare} sans Rare ou ${p.pity.uncommon} sans Peu commun, la suivante contient forcément cette rareté. Les mêmes compteurs, tenus séparément, s'appliquent aux shards de ténacité.`,
         `À l'Atelier, vous pouvez ajouter un lien ou un symbole à un programme que vous possédez (une seule amélioration par programme), ou broyer un exemplaire en trop, hors deck, pour récupérer des shards.`,
       ] },
       { id: "merchant", title: "Marchand", paras: [
@@ -2815,7 +2815,7 @@ STRINGS.fr = {
     logTargetYou: "vous", logTargetRival: "le rival",
     logTargetCardOwn: (cell) => `votre programme ${cell}`, logTargetCardEnemy: (cell) => `programme du rival ${cell}`,
     logTargetCellEnemy: (cell) => `case vide ${cell}`, logTargetNone: "aucune cible", logArrow: "→",
-    rarityCommon: "Commune", rarityUncommon: "Peu commune", rarityRare: "Rare", rarityUnique: "Ultra-rare",
+    rarityCommon: "Commun", rarityUncommon: "Peu commun", rarityRare: "Rare", rarityUnique: "Ultra-rare",
     triggerOnPlacement: "Au placement", triggerStartOfTurn: "Début de tour",
     triggerOnComboAtk: "Combo d'attaque", triggerOnComboShield: "Combo de bouclier", triggerOnComboRevive: "Combo de réveil",
     triggerOnActivation: "À la réactivation", triggerOnDisable: "À la désactivation", triggerNone: "Aucune capacité",
@@ -5219,7 +5219,7 @@ const TUT_I18N = {
     tutLegSym: "Symboles (en haut à droite) : attaque, bouclier, réveil ou neutre. C'est la matière des combos.",
     tutLegArrow: "Flèches (côtés et coins) : les liens. Deux programmes voisins se lient quand leurs flèches se font face — elles s'allument alors.",
     tutLegAbility: "Icône de capacité (en bas à droite) : quand le programme agit. Ici {tr:atk} = quand une chaîne d'attaque se résout. Sans icône : pas de capacité.",
-    tutLegRarity: "Halo coloré autour du programme : sa rareté (vert, bleu, orange = unique). Sans halo : commune.",
+    tutLegRarity: "Halo coloré autour du programme : sa rareté (vert, bleu, orange = unique). Sans halo : commun.",
     tutT_welcome: "Bienvenue !", tutX_welcome: "Un petit tour guidé de l'écran et des programmes, puis vous jouerez quelques coups pour de vrai. Rien n'est sauvegardé.",
     tutT_board: "Le plateau", tutX_board: (p) => `Chaque camp a des points de vie (PV) : réduisez ceux du rival à 0 avant que les vôtres n'y arrivent. Vous commencez à ${p.hp} PV, sans jamais dépasser ${p.cap}. Chacun construit sur sa propre grille 3×3 — la vôtre en bas, celle du rival en haut — en posant un programme par tour sur une case vide. Si votre grille est pleine au début de votre tour, vous perdez.`,
     tutT_cards: "Deck, main, défausse", tutX_cards: (p) => `Deck : les programmes pas encore piochés. Défausse : les programmes utilisés dans un combo ou détruits. Le rival a les mêmes piles. Votre main contient les programmes jouables : vous piochez jusqu'à ${p.hand} au début de chaque tour. Pour jouer, sélectionnez un programme puis touchez une case — ou glissez-le dessus.`,
@@ -8220,7 +8220,7 @@ function sampleHandFromPool(pool, size, templatesById, rng = Math.random) {
    * Affiché en bas de l'écran d'accueil. Un nouveau chat / un redémarrage à froid doit lire la
    * valeur ci-dessous et livrer la valeur + 1. Ne jamais la laisser inchangée, ne jamais la baisser.
    * ============================================================================================ */
-  const BUILD_NUMBER = 145;
+  const BUILD_NUMBER = 146;
 
   const STORAGE_KEY = "ccn_generic_engine_save_v1";            // partie en cours du mode random
   const CAMP_GAME_KEY = "ccn_campaign_game_v1";               // combat en cours du mode campaign (cloisonné du mode random)
